@@ -138,7 +138,7 @@ export default function HeroCinema() {
       <div className="gold-glow absolute inset-0" />
 
       {/* —— عنقود الفيلم: شارة + عدّاد + شرائط اللقطات، بمكان واحد —— */}
-      <div className="absolute left-5 top-24 z-20 flex flex-col items-start gap-2 sm:left-10 sm:top-28">
+      <div className="absolute bottom-28 left-5 z-20 flex flex-col items-start gap-2 sm:bottom-24 sm:left-10">
         <div className="flex items-center gap-2">
           <span className="flex items-center gap-2 rounded-full border border-gold/30 bg-ink/55 px-3.5 py-1.5 text-xs text-gold backdrop-blur-md">
             <Clapperboard className="h-3.5 w-3.5" />
@@ -173,6 +173,11 @@ export default function HeroCinema() {
               </button>
             ))}
           </div>
+        )}
+        {filmOn && (
+          <p className="text-[11px] tracking-[0.15em] text-ivory/55">
+            اللقطة: {FRAMES[frame].tag}
+          </p>
         )}
       </div>
     </div>

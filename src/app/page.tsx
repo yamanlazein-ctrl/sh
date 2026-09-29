@@ -76,7 +76,6 @@ const INTENTS: Intent[] = [
 ];
 
 const EXAMPLES = ["تأخير الصلاة بسبب العمل", "ميراث البنت", "تفسير سورة الكهف", "زكاة المال", "الصيام للحامل"];
-const ROTATING = ["العلم", "التفسير", "الفتوى", "التعليم"];
 
 const TAPE_A = ["صفوة التفاسير", "روائع البيان", "التبيان في علوم القرآن", "المواريث في الشريعة", "من كنوز السنة"];
 const TAPE_B = ["٣٤٠٠ فتوى", "٨٥٠ درساً وخطبة", "٦٠٠ مقال وبحث", "٥٠ كتاباً", "سبعون عاماً من العلم"];
@@ -99,7 +98,6 @@ function Home() {
   const [placeholder, setPlaceholder] = useState("");
   const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
-  const [word, setWord] = useState(0);
   const [pastHero, setPastHero] = useState(false);
   const [ready, setReady] = useState(false);
   const [activeSec, setActiveSec] = useState<string | null>(null);
@@ -143,11 +141,6 @@ function Home() {
     return () => clearInterval(id);
   }, []);
 
-  /* ---------- rotating headline word ---------- */
-  useEffect(() => {
-    const id = setInterval(() => setWord((w) => (w + 1) % ROTATING.length), 2400);
-    return () => clearInterval(id);
-  }, []);
 
   /* ---------- keyboard + scroll ---------- */
   useEffect(() => {
@@ -320,58 +313,42 @@ function Home() {
       {/* ================= HERO: الفيلم السينمائي للشيخ ================= */}
       <section
         key={ready ? "hero-on" : "hero-off"}
-        className="relative flex min-h-[100svh] flex-col justify-center overflow-x-clip pt-24"
+        className="relative min-h-[100svh] overflow-x-clip"
       >
-        {/* الخلفية: فيديو الشيخ (تلاوة/فتوى) أو مشاهد سينمائية متحركة */}
+        {/* الخلفية: فيلم الشخصية (يتحول لفيديو حقيقي عند إضافته) */}
         <HeroCinema />
 
-        {/* تعمّة خفيفة خلف النص لضمان القراءة */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_52%_at_50%_52%,rgba(0,0,0,0.72)_36%,rgba(0,0,0,0.28)_72%,transparent_100%)]" />
+        {/* تعتيم متدرّج من جهة النص (يمين) + تدرّج القاع — الفيلم يتنفس يساراً */}
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_left,rgba(0,0,0,0.95)_16%,rgba(0,0,0,0.75)_40%,rgba(0,0,0,0.28)_66%,rgba(0,0,0,0.04)_100%)]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-60 bg-gradient-to-t from-ink via-ink/60 to-transparent" />
 
-        <div className="relative z-20 mx-auto w-full max-w-3xl px-5 text-center">
+        <div className="relative z-20 mx-auto flex min-h-[100svh] w-full max-w-7xl flex-col justify-center px-5 pb-44 pt-28 sm:px-8 lg:pb-32">
+        <div className="max-w-2xl">
           <div
             className="grid transition-all duration-500 ease-[cubic-bezier(.2,.7,.1,1)]"
             style={{ gridTemplateRows: searching ? "0fr" : "1fr", opacity: searching ? 0 : 1 }}
             aria-hidden={searching}
           >
           <div className="min-h-0 overflow-hidden">
-          <p className="rise mb-6 flex flex-wrap items-center justify-center gap-4" style={{ animationDelay: "0.25s" }}>
-            <span className="hairline-gold hidden w-14 sm:block" aria-hidden />
-            <span className="text-[13px] tracking-[0.18em] text-gold2">
-              الأرشيف الرسمي للعلّامة محمد علي الصابوني · ١٩٣٠ — ٢٠٢١
-            </span>
-            <span className="hairline-gold hidden w-14 sm:block" aria-hidden />
+          <p className="rise flex items-center gap-3 text-[13px] tracking-[0.2em] text-gold2" style={{ animationDelay: "0.25s" }}>
+            <span className="hairline-gold w-12" aria-hidden />
+            الأرشيف الرسمي · ١٩٣٠ — ٢٠٢١
           </p>
 
-          <h1 className="font-display text-4xl leading-[1.3] sm:text-5xl md:text-6xl">
-            <span className="line-mask"><span className="line-in" style={{ animationDelay: "0.35s" }}>
-            سبعون عاماً من{" "}
-            <span className="relative inline-grid overflow-hidden align-bottom gold-text" style={{ height: "1.3em" }}>
-              {ROTATING.map((w, i) => {
-                const prev = (word - 1 + ROTATING.length) % ROTATING.length;
-                const state = i === word ? "translate-y-0 opacity-100" : i === prev ? "-translate-y-full opacity-0" : "translate-y-full opacity-0";
-                return (
-                  <span key={w} className={`[grid-area:1/1] leading-[1.3] transition-all duration-700 ease-[cubic-bezier(.2,.7,.1,1)] ${state}`}>
-                    {w}
-                  </span>
-                );
-              })}
-            </span>
-            </span></span>
-            <span className="line-mask">
-              <span className="line-in relative" style={{ animationDelay: "0.5s" }}>
-                على بُعد سؤال.
-              </span>
-            </span>
+          <h1 className="font-display mt-5 text-[3.4rem] leading-[1.06] sm:text-7xl lg:text-[5.6rem]">
+            <span className="line-mask"><span className="line-in" style={{ animationDelay: "0.35s" }}>العلامة</span></span>
+            <span className="line-mask"><span className="line-in" style={{ animationDelay: "0.47s" }}>محمد علي</span></span>
+            <span className="line-mask"><span className="line-in gold-text" style={{ animationDelay: "0.59s" }}>الصابوني</span></span>
           </h1>
-          <p className="rise mx-auto mt-5 max-w-xl text-base leading-relaxed text-ivory/75 sm:text-lg" style={{ animationDelay: "0.6s" }}>
-            كل ما تركه الشيخ — كتب وفتاوى ودروس وخطب — بين يديك. ابحث، اقرأ، واستمع.
+
+          <p className="rise mt-6 max-w-xl text-lg leading-relaxed text-ivory/75" style={{ animationDelay: "0.7s" }}>
+            سبعون عاماً من العلم — كتب وفتاوى ودروس وخطب، مجموعها هنا. ابحث بكلماتك، اقرأ، واستمع.
           </p>
           </div>
           </div>
 
           {/* SEARCH */}
-          <div className={`rise relative mx-auto max-w-2xl transition-[margin] duration-500 ${searching ? "mt-0" : "mt-10"}`} style={{ animationDelay: "0.75s" }}>
+          <div className={`rise relative max-w-xl transition-[margin] duration-500 ${searching ? "mt-0" : "mt-8"}`} style={{ animationDelay: "0.85s" }}>
             <label htmlFor="archive-search" className={`mb-3 block text-right text-base text-white/80 transition-opacity ${searching ? "opacity-100" : "sr-only"}`}>
               ابحث في أرشيف الشيخ
             </label>
@@ -530,6 +507,7 @@ function Home() {
               </button>
             ))}
           </div>
+        </div>
         </div>
 
         {/* شريط سفلي: أرقام الأرشيف فوق خلفية الفيلم */}
