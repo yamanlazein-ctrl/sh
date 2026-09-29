@@ -191,7 +191,7 @@
 }
 .fillbar {
   transform-origin: right;
-  animation: fillbar 1.15s linear both;
+  animation: fillbar 1s linear both;
 }
 
 /* ---------- Hover sweep: لمعة ذهبية تمرّ على البطاقات عند التحويم ---------- */
@@ -472,3 +472,33 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--gold);
 }
+
+/* ---------- Tape shine: نص ذهبي بلمعان يمشي ---------- */
+.tape-gold-shine {
+  background: linear-gradient(100deg, #b8934c 20%, #f0dcab 42%, #fffbe9 50%, #f0dcab 58%, #b8934c 80%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 3.2s linear infinite;
+}
+@keyframes shine {
+  from { background-position: 120% 0; }
+  to { background-position: -120% 0; }
+}
+.calm .tape-gold-shine { animation: none; }
+
+/* ---------- Parallax: طبقة تتبع الماوس ---------- */
+.parallax-l {
+  transition: transform 0.25s ease-out;
+  transform: translate3d(calc(var(--px, 0) * 18px), calc(var(--py, 0) * 10px), 0);
+}
+.calm .parallax-l { transform: none; }
+
+/* ---------- Float: طفو ناعم ---------- */
+@keyframes floaty {
+  0%, 100% { transform: rotate(-6deg) translateY(0); }
+  50% { transform: rotate(-4deg) translateY(-10px); }
+}
+.float-y { animation: floaty 6s ease-in-out infinite; }
+.calm .float-y { animation: none; }

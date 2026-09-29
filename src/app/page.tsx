@@ -104,6 +104,7 @@ function Home() {
   const [pastHero, setPastHero] = useState(false);
   const [ready, setReady] = useState(false);
   const [activeSec, setActiveSec] = useState<string | null>(null);
+  const [scrollPct, setScrollPct] = useState(0);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   /* ---------- search ---------- */
@@ -162,6 +163,8 @@ function Home() {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
       setPastHero(window.scrollY > window.innerHeight * 0.75);
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollPct(h > 0 ? Math.min(1, window.scrollY / h) : 0);
     };
     window.addEventListener("keydown", onKey);
     window.addEventListener("scroll", onScroll);
@@ -226,6 +229,12 @@ function Home() {
   return (
     <div className="relative min-h-screen bg-black text-white">
       <div className="grain pointer-events-none fixed inset-0 z-[60] opacity-[0.05] mix-blend-overlay" />
+      {/* شريط تقدم القراءة — يملأ بالذهبي كلما نزلت */}
+      <div
+        className="pointer-events-none fixed inset-x-0 top-0 z-[75] h-[3px] origin-right bg-gradient-to-l from-gold3 via-gold to-gold2"
+        style={{ transform: `scaleX(${scrollPct})` }}
+        aria-hidden
+      />
       <Intro onDone={() => setReady(true)} />
 
       {/* ================= NAV: floating pill ================= */}
@@ -561,11 +570,34 @@ function Home() {
           <Marquee items={TAPE_A} duration={40} itemClass="font-display text-4xl text-black sm:text-6xl" sep="text-black/40" />
         </Reveal>
         <Reveal variant="left" delay={0.15} className="border-b border-white/10 py-5" dir="ltr">
-          <Marquee items={TAPE_B} reverse duration={48} itemClass="font-display text-stroke text-4xl sm:text-6xl" sep="text-white/55" />
+          <Marquee items={TAPE_B} reverse duration={48} itemClass="font-display tape-gold-shine text-4xl sm:text-6xl" sep="text-gold/40" />
         </Reveal>
       </section>
 
-      {/* ================= INDEX (B) + hover marquee (A) ================= */}
+      {/* ================= BOOKS ================= */}
+      <BookShelf
+        onRead={(itemId) => {
+          const it = ITEMS.find((x) => x.id === itemId);
+          if (it) setOpen(it);
+          else jumpToSearch("read");
+        }}
+      />
+
+      {/* ================= FATWAS ================= */}
+      <FatwaSection onOpen={setOpen} onAsk={(q) => jumpToSearch("fatwa", q)} />
+
+      {/* divider tape */}
+      <Reveal as="section" variant="blur" aria-hidden className="overflow-hidden border-y border-white/10 py-6" dir="ltr">
+        <Marquee items={["شاهِد", "استمِع", "اقرأ", "اسأل"]} duration={30} itemClass="font-display text-stroke text-5xl sm:text-7xl" sep="text-[#D4AF6A]" />
+      </Reveal>
+
+      {/* ================= VIDEOS ================= */}
+      <VideoSection />
+
+      {/* ================= AUDIO ================= */}
+      <AudioSection />
+
+      {/* ================= الفهرس الشامل — قبل الختام ================= */}
       <section className="border-t border-white/10">
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
           <div className="mb-10 flex items-end justify-between">
@@ -612,29 +644,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-      {/* ================= BOOKS ================= */}
-      <BookShelf
-        onRead={(itemId) => {
-          const it = ITEMS.find((x) => x.id === itemId);
-          if (it) setOpen(it);
-          else jumpToSearch("read");
-        }}
-      />
-
-      {/* ================= FATWAS ================= */}
-      <FatwaSection onOpen={setOpen} onAsk={(q) => jumpToSearch("fatwa", q)} />
-
-      {/* divider tape */}
-      <Reveal as="section" variant="blur" aria-hidden className="overflow-hidden border-y border-white/10 py-6" dir="ltr">
-        <Marquee items={["شاهِد", "استمِع", "اقرأ", "اسأل"]} duration={30} itemClass="font-display text-stroke text-5xl sm:text-7xl" sep="text-[#D4AF6A]" />
-      </Reveal>
-
-      {/* ================= VIDEOS ================= */}
-      <VideoSection />
-
-      {/* ================= AUDIO ================= */}
-      <AudioSection />
 
       {/* ================= THE SHEIKH — تعريف بالشيخ مع لمحة فيديو ================= */}
       <section id="sheikh" className="relative scroll-mt-24 overflow-hidden border-t border-white/10">
@@ -691,7 +700,10 @@ function Home() {
               وُلد في حلب، ودرس في الأزهر، ثم قضى عقوداً يدرّس التفسير في مكة المكرمة. كتب «صفوة التفاسير» ليصل معنى القرآن إلى كل قارئ، متخصصاً كان أو غير متخصص.
             </p>
 
-            <div className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-gold/15 bg-gold/15 sm:grid-cols-4">
+            <Reveal variant="wipe" className="mt-12">
+              <div className="hairline-gold" />
+            </Reveal>
+            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-gold/15 bg-gold/15 sm:grid-cols-4">
               {[
                 { y: "1930", t: "المولد في حلب" },
                 { y: "1952", t: "التخرج في الأزهر" },
@@ -724,7 +736,7 @@ function Home() {
               <p className="mt-4 text-base text-ivory/70">طبعات معتمدة، وتوصيل داخل سوريا وخارجها، ودفع بالطريقة التي تناسبك.</p>
             </div>
             <div className="relative flex items-center gap-4">
-              <img src="/images/safwat-tafasir-book.jpg" alt="" className="hidden h-36 w-28 rotate-[-6deg] rounded-lg object-cover shadow-2xl ring-1 ring-gold/40 sm:block" />
+              <img src="/images/safwat-tafasir-book.jpg" alt="" className="float-y hidden h-36 w-28 rounded-lg object-cover shadow-2xl ring-1 ring-gold/40 sm:block" />
               <a href="#store" className="flex items-center gap-2 rounded-full bg-gold px-7 py-4 font-bold text-ink transition hover:bg-gold2 hover:gap-3">
                 <ShoppingBag className="h-4 w-4" />
                 تصفّح الكتب
@@ -737,6 +749,7 @@ function Home() {
 
       {/* ================= FOOTER ================= */}
       <footer className="border-t border-white/10">
+        <div className="hairline-gold" aria-hidden />
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-10 text-sm text-white/55 sm:flex-row sm:px-8">
           <div className="flex items-center gap-2.5">
             <span className="font-display grid h-7 w-7 place-items-center rounded-md bg-[#D4AF6A] text-sm text-black">ص</span>

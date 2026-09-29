@@ -89,7 +89,7 @@ export default function AudioSection() {
         </Reveal>
 
         {/* Player */}
-        <Reveal variant="up" className="grid items-center gap-10 rounded-[2rem] border border-white/10 bg-[#12100a] p-6 sm:p-10 lg:grid-cols-12">
+        <Reveal variant="up" className="sweep-hover grid items-center gap-10 rounded-[2rem] border border-white/10 bg-[#12100a] p-6 sm:p-10 lg:grid-cols-12">
           {/* Disc */}
           <div className="flex justify-center lg:col-span-4">
             <Reveal variant="spin" delay={0.25} className="relative aspect-square w-full max-w-[260px]">

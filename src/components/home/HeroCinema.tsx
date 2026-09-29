@@ -8,7 +8,7 @@ import { usePrefs } from "./prefs";
  * نظام فيديو الهيرو — «فيلم الشيخ»
  *
  * الفكرة: شخصية واحدة ثابتة (الشيخ) و٦ لقطات سينمائية تتبدّل بسرعة
- * (كل ثانية وربع تقريباً) مع وميض قصّ مونتاج — فيبدو المشهد كفيديو حيّ.
+ * (كل ثانية بالضبط) مع وميض قصّ مونتاج — فيبدو المشهد كفيديو حيّ.
  *
  * 1) إن وُجد فيديو حقيقي في public/videos/sheikh-intro.mp4 يُعرض بدلاً من اللقطات
  *    تلقائياً (صامت + زر صوت).
@@ -16,21 +16,22 @@ import { usePrefs } from "./prefs";
  */
 
 const VIDEO_SRC = "/videos/sheikh-intro.mp4";
-const FRAME_MS = 1150;
+const FRAME_MS = 1000;
 
 interface Frame {
   src: string;
   tag: string;
   line: string;
+  word: string;
 }
 
 const FRAMES: Frame[] = [
-  { src: "/images/frames/sheikh-frame-1.jpg", tag: "مجالس التفسير", line: "يشرح كتابَ الله… ويقلّب الصفحة لأجيال" },
-  { src: "/images/frames/sheikh-frame-2.jpg", tag: "بين يدي التفسير", line: "بين السطور يعيش الوحي" },
-  { src: "/images/frames/sheikh-frame-3.jpg", tag: "تدبّر", line: "صمتٌ… يتلو كما نزل" },
-  { src: "/images/frames/sheikh-frame-4.jpg", tag: "دعاء", line: "ويداه مرفوعتان بظهر الغيب" },
-  { src: "/images/frames/sheikh-frame-5.jpg", tag: "الإرث", line: "ورحيله… أثرٌ باقٍ" },
-  { src: "/images/frames/sheikh-frame-6.jpg", tag: "خطب ومحاضرات", line: "وكلمته منبرُ حكمة" },
+  { src: "/images/frames/sheikh-frame-1.jpg", tag: "مجالس التفسير", line: "يشرح كتابَ الله… ويقلّب الصفحة لأجيال", word: "التفسير" },
+  { src: "/images/frames/sheikh-frame-2.jpg", tag: "بين يدي التفسير", line: "بين السطور يعيش الوحي", word: "التلاوة" },
+  { src: "/images/frames/sheikh-frame-3.jpg", tag: "تدبّر", line: "صمتٌ… يتلو كما نزل", word: "التدبّر" },
+  { src: "/images/frames/sheikh-frame-4.jpg", tag: "دعاء", line: "ويداه مرفوعتان بظهر الغيب", word: "الدعاء" },
+  { src: "/images/frames/sheikh-frame-5.jpg", tag: "الإرث", line: "ورحيله… أثرٌ باقٍ", word: "الإرث" },
+  { src: "/images/frames/sheikh-frame-6.jpg", tag: "خطب ومحاضرات", line: "وكلمته منبرُ حكمة", word: "المنبر" },
 ];
 
 const pad2 = (n: number) => String(n).padStart(2, "0");
@@ -43,6 +44,18 @@ export default function HeroCinema() {
   const [frame, setFrame] = useState(0);
   const [loadedCount, setLoadedCount] = useState(0);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  /* بارالاكس: المشهد يتبع الماوس بلطف */
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (prefs.calm) return;
+    const onMove = (e: MouseEvent) => {
+      rootRef.current?.style.setProperty("--px", (e.clientX / window.innerWidth - 0.5).toFixed(3));
+      rootRef.current?.style.setProperty("--py", (e.clientY / window.innerHeight - 0.5).toFixed(3));
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMove);
+  }, [prefs.calm]);
 
   /* تحميل كل اللقطات مسبقاً — حتى يكون التبدّل كالفيديو بلا وميض تحميل */
   useEffect(() => {
@@ -78,16 +91,18 @@ export default function HeroCinema() {
   const cur = FRAMES[frame];
 
   return (
-    <div className="absolute inset-0 overflow-hidden" aria-hidden>
+    <div ref={rootRef} className="absolute inset-0 overflow-hidden" aria-hidden>
       {/* —— لقطات الشخصية تتقلب كإطارات فيلم —— */}
       {FRAMES.map((f, i) => (
         <div key={f.src} className={`scene ${filmOn && loadedCount > 0 && frame === i ? "on" : ""}`}>
-          <img
-            src={f.src}
-            alt=""
-            className={prefs.calm ? "" : i % 2 ? "kb-alt" : "kb"}
-            style={{ willChange: "transform" }}
-          />
+          <div className="parallax-l h-full w-full">
+            <img
+              src={f.src}
+              alt=""
+              className={prefs.calm ? "" : i % 2 ? "kb-alt" : "kb"}
+              style={{ willChange: "transform" }}
+            />
+          </div>
         </div>
       ))}
       {/* خلفية احتياطية حتى يجهز أول تحميل */}
@@ -110,6 +125,15 @@ export default function HeroCinema() {
           onError={() => setVideoGone(true)}
           className={`scene ${videoOk ? "on" : ""}`}
         />
+      )}
+
+      {/* —— الكلمة العملاقة: عنوان صامت يتكفّر مع كل لقطة —— */}
+      {filmOn && (
+        <div key={frame} className="rise pointer-events-none absolute inset-0 z-[5] flex items-center justify-center">
+          <span className="text-stroke font-display select-none text-[26vw] leading-none opacity-[0.08] sm:text-[20vw]">
+            {cur.word}
+          </span>
+        </div>
       )}
 
       {/* —— وميض القص عند كل تبدّل لقطة —— */}

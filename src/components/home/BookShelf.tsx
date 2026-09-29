@@ -92,6 +92,11 @@ export default function BookShelf({ onRead }: { onRead: (itemId?: number) => voi
           }}
           className="relative mx-auto mt-14 h-[330px] touch-pan-y select-none [--gap:118px] [perspective:1800px] sm:h-[400px] sm:[--gap:180px]"
         >
+          {/* بقعة ضوء ذهبية تسلط على الكتاب المنتقى */}
+          <div
+            className="pointer-events-none absolute -top-4 left-1/2 z-0 h-[130%] w-[460px] -translate-x-1/2 bg-gradient-to-b from-gold/15 via-gold/5 to-transparent blur-md [clip-path:polygon(45%_0,55%_0,80%_100%,20%_100%)]"
+            aria-hidden
+          />
           {/* floor glow */}
           <div className="pointer-events-none absolute bottom-0 left-1/2 h-16 w-[70%] -translate-x-1/2 rounded-[50%] bg-[#D4AF6A]/10 blur-2xl" />
 
