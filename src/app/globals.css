@@ -5,26 +5,26 @@
    Emerald Night + Manuscript Gold
    ============================================================ */
 @theme {
-  --color-ink: #04100c;        /* الخلفية الأساسية: أسود مخضرّ عميق */
-  --color-ink2: #082018;       /* أسطح مرفوعة */
-  --color-ink3: #0c2b21;       /* بطاقات وتحويف */
+  --color-ink: #0a0806;        /* الخلفية الأساسية: أسود كربوني دافئ */
+  --color-ink2: #14110b;       /* أسطح مرفوعة */
+  --color-ink3: #1c1812;       /* بطاقات وتحويف */
   --color-gold: #d4af6a;       /* ذهب المخطوطات — اللون الرئيسي */
   --color-gold2: #eacd93;      /* ذهب فاتح للتحويم */
   --color-gold3: #b8934c;      /* ذهب داكن */
   --color-ivory: #f5f0e3;      /* نص عاجي بدل الأبيض النيء */
-  --color-emd: #145443;        /* زمردي معمّق للأسطح الممتلئة */
-  --color-emd2: #0e3b2f;       /* زمردي أغمق */
-  --color-sage: #93a99d;       /* نص ثانوي هادئ */
+  --color-bronze: #2e2412;     /* برونزي داكن للأسطح الممتلئة */
+  --color-bronze2: #1d160b;    /* برونزي أغمق */
+  --color-sage: #a89c85;       /* نص ثانوي حجري دافئ */
 
   --font-quran: var(--font-amiri), "Amiri", "Times New Roman", serif;
 }
 
 @layer base {
   :root {
-    --ink: #04100c;
+    --ink: #0a0806;
     --gold: #d4af6a;
     --ivory: #f5f0e3;
-    --muted: #93a99d;
+    --muted: #a89c85;
 
     /* عائلات الخطوط (تُحمَّل عبر CDN في layout.tsx) */
     --font-ibm-plex: "IBM Plex Sans Arabic";
@@ -158,14 +158,14 @@
 
 .vignette {
   background:
-    radial-gradient(130% 100% at 50% 38%, transparent 42%, rgba(4, 16, 12, 0.78) 100%),
-    linear-gradient(to bottom, rgba(4, 16, 12, 0.62), rgba(4, 16, 12, 0.18) 30%, rgba(4, 16, 12, 0.24) 62%, var(--ink) 98%);
+    radial-gradient(130% 100% at 50% 38%, transparent 42%, rgba(10, 8, 6, 0.78) 100%),
+    linear-gradient(to bottom, rgba(10, 8, 6, 0.62), rgba(10, 8, 6, 0.18) 30%, rgba(10, 8, 6, 0.24) 62%, var(--ink) 98%);
 }
 
-.duotone-emerald {
-  background: #145443;
+.duotone-warm {
+  background: #6b5326;
   mix-blend-mode: color;
-  opacity: 0.5;
+  opacity: 0.18;
 }
 
 .gold-glow {
@@ -406,7 +406,7 @@ body {
   background: var(--ink);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1d3a2e;
+  background: #2a2416;
   border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {

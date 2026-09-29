@@ -61,7 +61,7 @@ export default function VideoSection() {
         <div className="grid gap-6 lg:grid-cols-12">
           {/* Featured player */}
           <Reveal variant="tilt" className="lg:col-span-8">
-            <div className="group relative aspect-video overflow-hidden rounded-3xl border border-white/10 bg-[#071b14]">
+            <div className="group relative aspect-video overflow-hidden rounded-3xl border border-white/10 bg-[#12100a]">
               {playing && v.youtubeId ? (
                 <iframe
                   className="absolute inset-0 h-full w-full"
@@ -114,7 +114,7 @@ export default function VideoSection() {
 
           {/* Playlist with its own small search */}
           <Reveal variant="left" delay={0.2} className="lg:col-span-4">
-            <div className="flex h-full flex-col rounded-3xl border border-white/10 bg-[#071b14]">
+            <div className="flex h-full flex-col rounded-3xl border border-white/10 bg-[#12100a]">
               <div className="border-b border-white/10 p-3">
                 <label htmlFor="video-search" className="sr-only">ابحث في المرئيات</label>
                 <div className="flex h-12 items-center gap-2 rounded-2xl border border-white/15 bg-black px-3 focus-within:border-[#D4AF6A]">

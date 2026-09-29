@@ -6,10 +6,10 @@ import { BOOKS, type Book, type Tone } from "@/app/home-media";
 import Reveal, { useInView } from "./Reveal";
 
 const TONE: Record<Tone, { bg: string; fg: string; line: string; edge: string }> = {
-  gold: { bg: "#D4AF6A", fg: "#04100c", line: "rgba(4,16,12,0.25)", edge: "#B8934C" },
-  cream: { bg: "#F2EDDD", fg: "#04100c", line: "rgba(4,16,12,0.18)", edge: "#d6cfbb" },
-  black: { bg: "#0A1F17", fg: "#F5F0E3", line: "rgba(245,240,227,0.2)", edge: "#000" },
-  gray: { bg: "#16241D", fg: "#F5F0E3", line: "rgba(245,240,227,0.2)", edge: "#0b1610" },
+  gold: { bg: "#D4AF6A", fg: "#0a0806", line: "rgba(10,8,6,0.25)", edge: "#B8934C" },
+  cream: { bg: "#F2EDDD", fg: "#0a0806", line: "rgba(10,8,6,0.18)", edge: "#d6cfbb" },
+  black: { bg: "#14110b", fg: "#F5F0E3", line: "rgba(245,240,227,0.2)", edge: "#000" },
+  gray: { bg: "#1c1812", fg: "#F5F0E3", line: "rgba(245,240,227,0.2)", edge: "#0a0806" },
 };
 
 const pad = (n: number) => String(n).padStart(2, "0");

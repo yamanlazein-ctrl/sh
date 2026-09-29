@@ -101,7 +101,7 @@ export default function HeroCinema() {
       ))}
       {/* مشهد أول احتياطي إن لم يُحمّل شيء بعد */}
       <div className={`scene ${showScenes && !loaded[0] && !loaded[1] ? "on" : ""}`}>
-        <div className="h-full w-full bg-gradient-to-b from-ink3 via-emd2 to-ink" />
+        <div className="h-full w-full bg-gradient-to-b from-ink3 via-bronze2 to-ink" />
       </div>
 
       {/* —— الفيديو الحقيقي للشيخ (إن وُجد) يصعد فوق المشاهد —— */}
@@ -122,7 +122,7 @@ export default function HeroCinema() {
       )}
 
       {/* —— طبقات التلوين السينمائي —— */}
-      <div className="duotone-emerald absolute inset-0" />
+      <div className="duotone-warm absolute inset-0" />
       <div className="vignette absolute inset-0" />
       <div className="gold-glow absolute inset-0" />
 

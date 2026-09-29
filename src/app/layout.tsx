@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#04100c",
+  themeColor: "#0a0806",
 };
 
 /* الخطوط تُحمَّل من Google Fonts في المتصفح (وليس وقت البناء) — React 19 يرفعها تلقائياً إلى <head> */

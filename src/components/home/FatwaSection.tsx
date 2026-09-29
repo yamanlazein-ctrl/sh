@@ -99,7 +99,7 @@ export default function FatwaSection({ onOpen, onAsk }: { onOpen: (i: ArchiveIte
         </div>
 
         {/* ===== Centered, prominent "didn't find it?" block ===== */}
-        <Reveal variant="zoom" className="relative mt-20 overflow-hidden rounded-[2.5rem] border border-[#D4AF6A]/40 bg-[#071b14] px-6 py-14 text-center sm:px-12">
+        <Reveal variant="zoom" className="relative mt-20 overflow-hidden rounded-[2.5rem] border border-[#D4AF6A]/40 bg-[#12100a] px-6 py-14 text-center sm:px-12">
           <div className="pointer-events-none absolute -top-32 left-1/2 h-64 w-[80%] -translate-x-1/2 rounded-[50%] bg-[#D4AF6A]/15 blur-3xl" />
           <span className="relative mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-[#D4AF6A] text-black">
             <MessageCircleQuestion className="h-8 w-8" />

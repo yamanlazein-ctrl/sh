@@ -89,7 +89,7 @@ export default function AudioSection() {
         </Reveal>
 
         {/* Player */}
-        <Reveal variant="up" className="grid items-center gap-10 rounded-[2rem] border border-white/10 bg-[#071b14] p-6 sm:p-10 lg:grid-cols-12">
+        <Reveal variant="up" className="grid items-center gap-10 rounded-[2rem] border border-white/10 bg-[#12100a] p-6 sm:p-10 lg:grid-cols-12">
           {/* Disc */}
           <div className="flex justify-center lg:col-span-4">
             <Reveal variant="spin" delay={0.25} className="relative aspect-square w-full max-w-[260px]">
@@ -183,7 +183,7 @@ export default function AudioSection() {
           </p>
           <div className="w-full sm:w-80">
             <label htmlFor="audio-search" className="sr-only">ابحث في الصوتيات</label>
-            <div className="flex h-12 items-center gap-2 rounded-2xl border border-white/15 bg-[#071b14] px-3 focus-within:border-[#D4AF6A]">
+            <div className="flex h-12 items-center gap-2 rounded-2xl border border-white/15 bg-[#12100a] px-3 focus-within:border-[#D4AF6A]">
               <Search className="h-5 w-5 shrink-0 text-white/60" />
               <input
                 id="audio-search"

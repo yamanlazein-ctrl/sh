@@ -63,7 +63,7 @@ export default function PortraitStory() {
         />
         <div className="absolute inset-0 bg-[#D4AF6A] opacity-[0.16] mix-blend-color" />
         <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/55 to-ink" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_45%,rgba(4,16,12,0.25),rgba(4,16,12,0.85))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_45%,rgba(10,8,6,0.25),rgba(10,8,6,0.85))]" />
 
         {/* thin progress rail */}
         <div className="absolute inset-y-24 right-5 w-px bg-white/15 sm:right-8" aria-hidden>

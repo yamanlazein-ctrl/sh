@@ -318,7 +318,7 @@ function Home() {
         <HeroCinema />
 
         {/* تعمّة خفيفة خلف النص لضمان القراءة */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_52%_at_50%_52%,rgba(4,16,12,0.72)_36%,rgba(4,16,12,0.28)_72%,transparent_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_52%_at_50%_52%,rgba(10,8,6,0.72)_36%,rgba(10,8,6,0.28)_72%,transparent_100%)]" />
 
         <div className="relative z-20 mx-auto w-full max-w-3xl px-5 text-center">
           <div
@@ -370,7 +370,7 @@ function Home() {
               ابحث في أرشيف الشيخ
             </label>
             <div
-              className={`relative flex items-center gap-3 rounded-2xl border bg-[#071b14] px-5 py-4 transition-all duration-300 ${
+              className={`relative flex items-center gap-3 rounded-2xl border bg-[#12100a] px-5 py-4 transition-all duration-300 ${
                 focused ? "border-[#D4AF6A] shadow-[0_0_0_6px_rgba(212,175,106,0.12)]" : "border-white/15"
               }`}
             >
@@ -439,7 +439,7 @@ function Home() {
             </div>
 
             {showPanel && (
-              <div className="absolute inset-x-0 top-full z-40 mt-2 flex max-h-[min(58vh,520px)] flex-col overflow-hidden rounded-2xl border border-white/15 bg-[#071b14] text-right shadow-[0_30px_80px_rgba(0,0,0,0.9)]" role="listbox" aria-label="نتائج البحث">
+              <div className="absolute inset-x-0 top-full z-40 mt-2 flex max-h-[min(58vh,520px)] flex-col overflow-hidden rounded-2xl border border-white/15 bg-[#12100a] text-right shadow-[0_30px_80px_rgba(0,0,0,0.9)]" role="listbox" aria-label="نتائج البحث">
                 <div className="flex items-center justify-between border-b border-white/5 px-5 py-2.5 text-xs text-white/55">
                   <span>
                     {results.length} نتيجة · خلال {ms.toFixed(2)} ملّي ثانية
@@ -564,7 +564,7 @@ function Home() {
               { n: "٢", t: "اختر ما يناسبك", d: "تظهر لك الكتب والفتاوى والدروس المتعلقة بسؤالك مباشرة، مرتّبة من الأقرب." },
               { n: "٣", t: "اقرأ أو استمع", d: "كبّر الخط كما تحب، أو اضغط «استمع للنص» ليقرأه لك الموقع، وشاركه مع أهلك." },
             ].map((s, i) => (
-              <Reveal as="li" variant="up" delay={0.1 + i * 0.14} key={s.n} className="flex gap-4 rounded-3xl border border-white/10 bg-[#071b14] p-6">
+              <Reveal as="li" variant="up" delay={0.1 + i * 0.14} key={s.n} className="flex gap-4 rounded-3xl border border-white/10 bg-[#12100a] p-6">
                 <span className="font-display grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-[#D4AF6A] text-3xl text-black">{s.n}</span>
                 <span>
                   <span className="font-display block text-xl">{s.t}</span>
@@ -669,7 +669,7 @@ function Home() {
       {/* ================= THE SHEIKH — تعريف بالشيخ مع لمحة فيديو ================= */}
       <section id="sheikh" className="relative scroll-mt-24 overflow-hidden border-t border-white/10">
         {/* وهج زمردي خلفي خفيف */}
-        <div className="pointer-events-none absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-emd/25 blur-[120px]" aria-hidden />
+        <div className="pointer-events-none absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-gold/10 blur-[120px]" aria-hidden />
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-24 sm:px-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Reveal variant="curtain" className="ornate-corner relative aspect-[4/5] overflow-hidden rounded-2xl border border-gold/25">
@@ -743,7 +743,7 @@ function Home() {
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
           <Reveal
             variant="zoom"
-            className="ornate-corner relative flex flex-col items-start justify-between gap-8 overflow-hidden rounded-3xl border border-gold/30 bg-gradient-to-l from-emd2 via-emd to-emd2 p-8 text-ivory sm:p-12 md:flex-row md:items-center"
+            className="ornate-corner relative flex flex-col items-start justify-between gap-8 overflow-hidden rounded-3xl border border-gold/30 bg-gradient-to-l from-bronze2 via-bronze to-bronze2 p-8 text-ivory sm:p-12 md:flex-row md:items-center"
           >
             <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-gold/15 blur-[90px]" aria-hidden />
             <div className="relative max-w-xl">
@@ -823,7 +823,7 @@ function ReadingDrawer({
   // colors for dark vs. paper reading mode
   const c = paper
     ? { panel: "bg-[#F2EDDD] text-[#141414] border-black/10", sub: "text-black/65", faint: "text-black/55", line: "border-black/10", chip: "border-black/15 text-black/70", btn: "border-black/15 hover:bg-black/5" }
-    : { panel: "bg-[#071b14] text-white border-white/10", sub: "text-white/75", faint: "text-white/55", line: "border-white/10", chip: "border-white/15 text-white/60", btn: "border-white/15 hover:bg-white/5" };
+    : { panel: "bg-[#12100a] text-white border-white/10", sub: "text-white/75", faint: "text-white/55", line: "border-white/10", chip: "border-white/15 text-white/60", btn: "border-white/15 hover:bg-white/5" };
 
   return (
     <div className="fixed inset-0 z-[70]" role="dialog" aria-modal="true" aria-label={item.title}>
