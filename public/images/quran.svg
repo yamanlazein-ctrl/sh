@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 72" fill="none" aria-hidden="true">
+  <!-- Open mushaf  formal outline -->
+  <path
+    d="M48 14c-6.5-5.2-14.8-8-23.5-8C16.2 6 9.8 8.2 5 12.2v46.6C10.2 54.4 17.2 52 24.5 52c8.7 0 16.8 2.8 23.5 8 6.7-5.2 14.8-8 23.5-8 7.3 0 14.3 2.4 19.5 6.8V12.2C86.2 8.2 79.8 6 71.5 6 62.8 6 54.5 8.8 48 14Z"
+    stroke="#9EE4A9"
+    stroke-width="2.4"
+    stroke-linejoin="round"
+  />
+  <path d="M48 14v46" stroke="#9EE4A9" stroke-width="2.4" stroke-linecap="round" />
+  <!-- Left page lines -->
+  <path d="M18 24h18M16 32h20M18 40h18" stroke="#9EE4A9" stroke-width="1.6" stroke-linecap="round" opacity="0.7" />
+  <!-- Right page lines -->
+  <path d="M60 24h18M60 32h20M60 40h18" stroke="#9EE4A9" stroke-width="1.6" stroke-linecap="round" opacity="0.7" />
+  <!-- Small mark at spine top -->
+  <circle cx="48" cy="12" r="2.2" fill="#9EE4A9" />
+</svg>

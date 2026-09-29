@@ -45,6 +45,7 @@ import PortraitStory from "@/components/home/PortraitStory";
 import ReadingToolbar from "@/components/home/ReadingToolbar";
 import { PrefsProvider } from "@/components/home/prefs";
 import { useVoiceSearch, useReadAloud } from "@/components/home/voice";
+import Footer from "@/components/Footer";
 
 const SECTIONS = [
   { id: "books", label: "الكتب" },
@@ -106,6 +107,7 @@ function Home() {
   const [pastHero, setPastHero] = useState(false);
   const [ready, setReady] = useState(false);
   const [activeSec, setActiveSec] = useState<string | null>(null);
+  const [sheikhVideo, setSheikhVideo] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const heroRef = useRef<HTMLElement | null>(null);
 
@@ -382,9 +384,24 @@ function Home() {
           <h1 className="font-display text-[2.5rem] leading-[1.25] sm:text-6xl md:text-7xl">
             <span className="line-mask"><span className="line-in" style={{ animationDelay: "0.35s" }}>
             سبعون عاماً
-            <span className="group/p mx-3 inline-block h-[0.8em] w-[1.9em] translate-y-[0.08em] overflow-hidden rounded-full align-baseline ring-1 ring-white/25 transition-all duration-500 hover:w-[3.2em]">
-              <img src="/images/sheikh-portrait.jpg" alt="الشيخ محمد علي الصابوني" className="h-full w-full object-cover object-top grayscale transition duration-500 group-hover/p:grayscale-0" />
-            </span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 96 72"
+              fill="none"
+              aria-hidden
+              className="mx-2 inline-block h-[0.95em] w-[1.25em] translate-y-[0.08em] align-baseline sm:mx-3"
+            >
+              <path
+                d="M48 14c-6.5-5.2-14.8-8-23.5-8C16.2 6 9.8 8.2 5 12.2v46.6C10.2 54.4 17.2 52 24.5 52c8.7 0 16.8 2.8 23.5 8 6.7-5.2 14.8-8 23.5-8 7.3 0 14.3 2.4 19.5 6.8V12.2C86.2 8.2 79.8 6 71.5 6 62.8 6 54.5 8.8 48 14Z"
+                stroke="#9EE4A9"
+                strokeWidth="3"
+                strokeLinejoin="round"
+              />
+              <path d="M48 14v46" stroke="#9EE4A9" strokeWidth="3" strokeLinecap="round" />
+              <path d="M18 24h18M16 32h20M18 40h18" stroke="#9EE4A9" strokeWidth="2" strokeLinecap="round" opacity="0.75" />
+              <path d="M60 24h18M60 32h20M60 40h18" stroke="#9EE4A9" strokeWidth="2" strokeLinecap="round" opacity="0.75" />
+              <circle cx="48" cy="12" r="2.4" fill="#9EE4A9" />
+            </svg>
             من{" "}
             <span className="relative inline-grid overflow-hidden align-bottom text-[#9EE4A9]" style={{ height: "1.3em" }}>
               {ROTATING.map((w, i) => {
@@ -583,33 +600,45 @@ function Home() {
         </div>
       </section>
 
-      {/* ================= HOW IT WORKS (plain language, for first-time visitors) ================= */}
-      <section className="border-t border-white/10" aria-labelledby="how-title">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
-          <Reveal variant="blur" as="h2" id="how-title" className="font-display text-2xl sm:text-3xl">
-            أول مرة هنا؟ <span className="text-[#9EE4A9]">الأمر بسيط.</span>
+      {/* ================= HOW IT WORKS — manuscript guide (not SaaS cards) ================= */}
+      <section className="border-t border-white/10 bg-[#E6DFD0] text-[#1A1814]" aria-labelledby="how-title">
+        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:py-20">
+          <Reveal variant="blur" className="lg:col-span-4">
+            <h2 id="how-title" className="font-display text-3xl leading-tight sm:text-4xl">
+              أول مرة في الأرشيف؟
+            </h2>
+            <p className="mt-4 max-w-sm text-base leading-relaxed text-[#1A1814]/70">
+              ثلاثة أبواب تفتح لك المكتبة — اكتب، اختر، ثم اقرأ أو استمع. من دون مصطلحات تقنية.
+            </p>
+            <button
+              onClick={() => jumpToSearch(null)}
+              className="mt-8 flex min-h-12 items-center gap-2 rounded-full bg-[#1A1814] px-6 text-base font-bold text-[#E6DFD0] transition hover:bg-[#9EE4A9] hover:text-black"
+            >
+              <Search className="h-5 w-5" /> ابدأ بالبحث
+            </button>
           </Reveal>
-          <ol className="mt-8 grid gap-4 md:grid-cols-3">
-            {[
-              { n: "١", t: "اكتب سؤالك أو قُله", d: "اكتب بكلماتك العادية، أو اضغط زر «تكلّم» واسأل بصوتك. لا حاجة لكلمات دقيقة." },
-              { n: "٢", t: "اختر ما يناسبك", d: "تظهر لك الكتب والفتاوى والدروس المتعلقة بسؤالك مباشرة، مرتّبة من الأقرب." },
-              { n: "٣", t: "اقرأ أو استمع", d: "كبّر الخط كما تحب، أو اضغط «استمع للنص» ليقرأه لك الموقع، وشاركه مع أهلك." },
-            ].map((s, i) => (
-              <Reveal as="li" variant="up" delay={0.1 + i * 0.14} key={s.n} className="flex gap-4 rounded-3xl border border-white/10 bg-[#0A0A0A] p-6">
-                <span className="font-display grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-[#9EE4A9] text-3xl text-black">{s.n}</span>
-                <span>
-                  <span className="font-display block text-xl">{s.t}</span>
-                  <span className="mt-2 block text-base leading-relaxed text-white/70">{s.d}</span>
-                </span>
-              </Reveal>
-            ))}
-          </ol>
-          <button
-            onClick={() => jumpToSearch(null)}
-            className="mt-8 flex min-h-12 items-center gap-2 rounded-full bg-white px-6 text-base font-bold text-black transition hover:bg-[#9EE4A9]"
-          >
-            <Search className="h-5 w-5" /> جرّب الآن
-          </button>
+
+          <Reveal variant="wipe" delay={0.15} className="lg:col-span-8">
+            <ol className="relative border-r-2 border-[#1A1814]/15 pr-6 sm:pr-10">
+              {[
+                { n: "١", t: "اكتب سؤالك أو قُله", d: "اكتب بكلماتك العادية، أو اضغط «تكلّم» واسأل بصوتك. لا حاجة لكلمات دقيقة." },
+                { n: "٢", t: "اختر ما يناسبك", d: "تظهر الكتب والفتاوى والدروس الأقرب لسؤالك، مرتّبة من الأكثر صلة." },
+                { n: "٣", t: "اقرأ أو استمع", d: "كبّر الخط كما تحب، أو استمع للنص، ثم شاركه مع من يحبّه." },
+              ].map((s, i, arr) => (
+                <li key={s.n} className={`relative grid gap-2 py-6 sm:grid-cols-[3rem_1fr] sm:gap-6 ${i < arr.length - 1 ? "border-b border-[#1A1814]/10" : ""}`}>
+                  <span
+                    className="absolute -right-[calc(0.5rem+1px)] top-8 h-3 w-3 translate-x-1/2 rounded-full bg-[#1A1814] sm:top-9"
+                    aria-hidden
+                  />
+                  <span className="font-display text-4xl leading-none text-[#1A1814]/25 sm:text-5xl">{s.n}</span>
+                  <span>
+                    <span className="font-display block text-xl sm:text-2xl">{s.t}</span>
+                    <span className="mt-2 block max-w-prose text-base leading-relaxed text-[#1A1814]/70">{s.d}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
         </div>
       </section>
 
@@ -697,39 +726,57 @@ function Home() {
       {/* ================= AUDIO ================= */}
       <AudioSection />
 
-      {/* ================= THE SHEIKH ================= */}
-      <section id="sheikh" className="scroll-mt-24 border-t border-white/10">
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 py-24 sm:px-8 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <Reveal variant="curtain" className="relative aspect-[4/5] overflow-hidden rounded-2xl">
-              <img src="/images/sheikh-portrait.jpg" alt="الشيخ محمد علي الصابوني" className="h-full w-full object-cover object-top grayscale contrast-125" />
-              <div className="absolute inset-0 bg-[#9EE4A9] mix-blend-multiply" />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-                <p className="font-display text-2xl text-white">محمد علي الصابوني</p>
-                <p className="text-sm text-white/70">مفسّر · فقيه · معلّم</p>
-              </div>
-            </Reveal>
-          </div>
+      {/* ================= THE SHEIKH — video background ================= */}
+      <section id="sheikh" className="relative scroll-mt-24 overflow-hidden border-t border-white/10">
+        {/* Background: drop a real clip at public/videos/sheikh-bg.mp4 — Ken Burns fills until then */}
+        <div className="pointer-events-none absolute inset-0" aria-hidden>
+          <video
+            className={`absolute inset-0 h-full w-full object-cover grayscale contrast-125 transition-opacity duration-700 ${sheikhVideo ? "opacity-100" : "opacity-0"}`}
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/images/sheikh-portrait.jpg"
+            onCanPlay={() => setSheikhVideo(true)}
+            onError={() => setSheikhVideo(false)}
+          >
+            <source src="/videos/sheikh-bg.mp4" type="video/mp4" />
+          </video>
+          <img
+            src="/images/sheikh-portrait.jpg"
+            alt=""
+            className={`sheikh-bg-ken absolute inset-0 h-full w-full object-cover object-top grayscale contrast-125 transition-opacity duration-700 ${sheikhVideo ? "opacity-0" : "opacity-100"}`}
+          />
+          <div className="absolute inset-0 bg-black/70" />
+          <div className="absolute inset-0 bg-[#9EE4A9]/15 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/50" />
+        </div>
 
-          <Reveal variant="blur" delay={0.2} className="flex flex-col justify-center lg:col-span-7">
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-5 py-28 sm:px-8 lg:grid-cols-12 lg:py-36">
+          <Reveal variant="blur" delay={0.1} className="flex flex-col justify-center lg:col-span-7 lg:col-start-1">
             <p className="text-base text-[#9EE4A9]">من هو الشيخ</p>
-            <h2 className="font-display mt-3 text-4xl leading-tight sm:text-5xl">
+            <h2 className="font-display mt-3 text-4xl leading-tight sm:text-5xl md:text-6xl">
               من حلقات حلب
               <br />
               إلى أروقة الحرم.
             </h2>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/55">
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/75">
               وُلد في حلب، ودرس في الأزهر، ثم قضى عقوداً يدرّس التفسير في مكة المكرمة. كتب «صفوة التفاسير» ليصل معنى القرآن إلى كل قارئ، متخصصاً كان أو غير متخصص.
             </p>
 
-            <div className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-white/10 sm:grid-cols-4">
+            <div className="mt-10">
+              <p className="font-display text-3xl text-white sm:text-4xl">محمد علي الصابوني</p>
+              <p className="mt-2 text-base text-white/70">مفسّر · فقيه · معلّم</p>
+            </div>
+
+            <div className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 backdrop-blur-sm sm:grid-cols-4">
               {[
                 { y: "1930", t: "المولد في حلب" },
                 { y: "1952", t: "التخرج في الأزهر" },
                 { y: "1980", t: "صفوة التفاسير" },
                 { y: "2021", t: "الوفاة في تركيا" },
               ].map((m, mi) => (
-                <Reveal key={m.y} variant="zoom" delay={0.4 + mi * 0.12} className="bg-black p-5">
+                <Reveal key={m.y} variant="zoom" delay={0.4 + mi * 0.12} className="bg-black/70 p-5 backdrop-blur-md">
                   <p className="font-sans text-2xl font-black text-[#9EE4A9]">{m.y}</p>
                   <p className="mt-1 text-base text-white/75">{m.t}</p>
                 </Reveal>
@@ -760,16 +807,7 @@ function Home() {
         </div>
       </section>
 
-      {/* ================= FOOTER ================= */}
-      <footer className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-10 text-sm text-white/55 sm:flex-row sm:px-8">
-          <div className="flex items-center gap-2.5">
-            <span className="font-display grid h-7 w-7 place-items-center rounded-md bg-[#9EE4A9] text-sm text-black">ص</span>
-            <span className="text-white/70">الصابوني — الأرشيف العلمي</span>
-          </div>
-          <p>صدقة جارية عن روح الشيخ محمد علي الصابوني رحمه الله</p>
-        </div>
-      </footer>
+      <Footer />
 
       {open && <ReadingDrawer item={open} onClose={() => setOpen(null)} onOpen={setOpen} />}
     </div>
