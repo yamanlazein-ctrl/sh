@@ -1,13 +1,36 @@
 @import "tailwindcss";
 
+/* ============================================================
+   الهوية الجديدة — «ليلة الزمرد وذهبُ المخطوطات»
+   Emerald Night + Manuscript Gold
+   ============================================================ */
+@theme {
+  --color-ink: #04100c;        /* الخلفية الأساسية: أسود مخضرّ عميق */
+  --color-ink2: #082018;       /* أسطح مرفوعة */
+  --color-ink3: #0c2b21;       /* بطاقات وتحويف */
+  --color-gold: #d4af6a;       /* ذهب المخطوطات — اللون الرئيسي */
+  --color-gold2: #eacd93;      /* ذهب فاتح للتحويم */
+  --color-gold3: #b8934c;      /* ذهب داكن */
+  --color-ivory: #f5f0e3;      /* نص عاجي بدل الأبيض النيء */
+  --color-emd: #145443;        /* زمردي معمّق للأسطح الممتلئة */
+  --color-emd2: #0e3b2f;       /* زمردي أغمق */
+  --color-sage: #93a99d;       /* نص ثانوي هادئ */
+
+  --font-quran: var(--font-amiri), "Amiri", "Times New Roman", serif;
+}
+
 @layer base {
   :root {
-    --ink: #000000;
-    --paper: #ffffff;
-    --mint: #9ee4a9;
-    --mint-soft: #c6f2cd;
-    --muted: #8e8e93;
-    --line: #1c1c1c;
+    --ink: #04100c;
+    --gold: #d4af6a;
+    --ivory: #f5f0e3;
+    --muted: #93a99d;
+
+    /* عائلات الخطوط (تُحمَّل عبر CDN في layout.tsx) */
+    --font-ibm-plex: "IBM Plex Sans Arabic";
+    --font-readex: "Readex Pro";
+    --font-cairo: "Cairo";
+    --font-amiri: "Amiri";
   }
 
   html {
@@ -15,11 +38,16 @@
   }
 
   body {
-    background: #000;
-    color: #fff;
+    background: var(--ink);
+    color: var(--ivory);
     font-family: "Thmanyah Sans", var(--font-ibm-plex), var(--font-readex), system-ui, sans-serif;
     direction: rtl;
     overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: var(--ink);
   }
 }
 
@@ -49,12 +77,8 @@
 }
 
 @keyframes river {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 /* ---------- Generic marquee (tapes + index hover) ---------- */
@@ -70,7 +94,82 @@
 
 .text-stroke {
   color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.85);
+  -webkit-text-stroke: 1.5px rgba(212, 175, 106, 0.8);
+}
+
+/* ---------- Gold gradient headline text ---------- */
+.gold-text {
+  background: linear-gradient(115deg, #f0dcab 0%, #d4af6a 48%, #b8934c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Hairlines & ornaments ---------- */
+.hairline-gold {
+  height: 1px;
+  background: linear-gradient(to left, transparent, rgba(212, 175, 106, 0.55), transparent);
+}
+
+.ornate-corner {
+  position: relative;
+}
+.ornate-corner::before,
+.ornate-corner::after {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(212, 175, 106, 0.55);
+  pointer-events: none;
+}
+.ornate-corner::before { top: 10px; right: 10px; border-left: 0; border-bottom: 0; }
+.ornate-corner::after { bottom: 10px; left: 10px; border-right: 0; border-top: 0; }
+
+/* ---------- Cinematic backdrop (video / poster scenes) ---------- */
+.scene {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+.scene.on {
+  opacity: 1;
+}
+.scene > img,
+.scene > video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes kb {
+  from { transform: scale(1.03) translate(0, 0); }
+  to { transform: scale(1.15) translate(-1.8%, 1.4%); }
+}
+@keyframes kb-alt {
+  from { transform: scale(1.14) translate(1.6%, -1.2%); }
+  to { transform: scale(1.04) translate(0, 0); }
+}
+.kb { animation: kb 17s ease-in-out infinite alternate; }
+.kb-alt { animation: kb-alt 19s ease-in-out infinite alternate; }
+.calm .kb,
+.calm .kb-alt { animation: none; }
+
+.vignette {
+  background:
+    radial-gradient(130% 100% at 50% 38%, transparent 42%, rgba(4, 16, 12, 0.78) 100%),
+    linear-gradient(to bottom, rgba(4, 16, 12, 0.62), rgba(4, 16, 12, 0.18) 30%, rgba(4, 16, 12, 0.24) 62%, var(--ink) 98%);
+}
+
+.duotone-emerald {
+  background: #145443;
+  mix-blend-mode: color;
+  opacity: 0.5;
+}
+
+.gold-glow {
+  background: radial-gradient(58% 46% at 50% 42%, rgba(212, 175, 106, 0.16), transparent 70%);
 }
 
 /* ---------- Audio: equalizer + spinning disc ---------- */
@@ -84,7 +183,7 @@
   width: 3px;
   height: 14px;
   border-radius: 2px;
-  background: var(--mint);
+  background: var(--gold);
   transform-origin: bottom;
   animation: eq 0.9s ease-in-out infinite;
 }
@@ -110,7 +209,7 @@
   position: absolute;
   inset: 0;
   border-radius: 9999px;
-  background: var(--mint);
+  background: var(--gold);
   animation: ring 1.8s ease-out infinite;
   z-index: -1;
 }
@@ -207,15 +306,15 @@ body {
 
 /* Clear keyboard focus for everyone */
 :focus-visible {
-  outline: 3px solid var(--mint);
+  outline: 3px solid var(--gold);
   outline-offset: 3px;
   border-radius: 8px;
 }
 
 /* Voice search listening pulse */
 @keyframes listen {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(158, 228, 169, 0.5); }
-  50% { box-shadow: 0 0 0 12px rgba(158, 228, 169, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 106, 0.5); }
+  50% { box-shadow: 0 0 0 12px rgba(212, 175, 106, 0); }
 }
 .listening {
   animation: listen 1.2s ease-out infinite;
@@ -268,14 +367,12 @@ body {
   height: 1.1em;
   margin-inline-start: 2px;
   vertical-align: -0.15em;
-  background: var(--mint);
+  background: var(--gold);
   animation: blink 1s steps(1) infinite;
 }
 
 @keyframes blink {
-  50% {
-    opacity: 0;
-  }
+  50% { opacity: 0; }
 }
 
 /* ---------- Film grain for a printed, premium feel ---------- */
@@ -285,14 +382,8 @@ body {
 
 /* ---------- Entrance ---------- */
 @keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .rise {
@@ -300,12 +391,8 @@ body {
 }
 
 @keyframes drawer-in {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
 }
 
 .drawer-in {
@@ -316,12 +403,12 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #000;
+  background: var(--ink);
 }
 ::-webkit-scrollbar-thumb {
-  background: #222;
+  background: #1d3a2e;
   border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--mint);
+  background: var(--gold);
 }

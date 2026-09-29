@@ -23,7 +23,7 @@ export default function FatwaSection({ onOpen, onAsk }: { onOpen: (i: ArchiveIte
           {/* Sticky intro */}
           <div className="lg:col-span-4">
             <Reveal variant="blur" className="lg:sticky lg:top-28">
-              <p className="text-base text-[#9EE4A9]">الفتاوى</p>
+              <p className="text-base text-[#D4AF6A]">الفتاوى</p>
               <h2 className="font-display mt-2 text-4xl leading-tight sm:text-6xl">
                 اسأل،
                 <br />
@@ -32,7 +32,7 @@ export default function FatwaSection({ onOpen, onAsk }: { onOpen: (i: ArchiveIte
               <p className="mt-6 text-lg leading-relaxed text-white/70">أجوبة محرّرة من فتاوى الشيخ، مكتوبة بلغة واضحة يفهمها الجميع.</p>
               <div className="mt-10 border-t border-white/10 pt-6">
                 <p className="text-sm text-white/65">أكثر من</p>
-                <p className="font-sans text-5xl font-black tracking-tight text-[#9EE4A9]" dir="ltr" style={{ textAlign: "right" }}>
+                <p className="font-sans text-5xl font-black tracking-tight text-[#D4AF6A]" dir="ltr" style={{ textAlign: "right" }}>
                   3,400
                 </p>
                 <p className="text-base text-white/80">فتوى في العبادات والمعاملات والأسرة</p>
@@ -48,7 +48,7 @@ export default function FatwaSection({ onOpen, onAsk }: { onOpen: (i: ArchiveIte
                   key={c}
                   onClick={() => setCat(c)}
                   className={`min-h-10 rounded-full border px-4 text-base transition ${
-                    cat === c ? "border-[#9EE4A9] bg-[#9EE4A9] text-black" : "border-white/15 text-white/70 hover:text-white"
+                    cat === c ? "border-[#D4AF6A] bg-[#D4AF6A] text-black" : "border-white/15 text-white/70 hover:text-white"
                   }`}
                 >
                   {c}
@@ -64,14 +64,14 @@ export default function FatwaSection({ onOpen, onAsk }: { onOpen: (i: ArchiveIte
                     <button onClick={() => setOpenId(open ? null : f.id)} aria-expanded={open} className="group flex w-full items-start gap-5 py-6 text-right">
                       <span className="pt-2 font-sans text-sm tabular-nums text-white/50">{pad(i + 1)}</span>
                       <span className="flex-1">
-                        <span className="text-sm text-[#9EE4A9]">{f.meta}</span>
+                        <span className="text-sm text-[#D4AF6A]">{f.meta}</span>
                         <span className={`font-display mt-1 block text-xl leading-snug transition sm:text-2xl ${open ? "text-white" : "text-white/85 group-hover:text-white"}`}>
                           {f.title}
                         </span>
                       </span>
                       <span
                         className={`mt-1 grid h-11 w-11 shrink-0 place-items-center rounded-full border transition duration-300 ${
-                          open ? "rotate-45 border-transparent bg-[#9EE4A9] text-black" : "border-white/20 text-white/70 group-hover:border-white/50"
+                          open ? "rotate-45 border-transparent bg-[#D4AF6A] text-black" : "border-white/20 text-white/70 group-hover:border-white/50"
                         }`}
                       >
                         <Plus className="h-5 w-5" />
@@ -84,7 +84,7 @@ export default function FatwaSection({ onOpen, onAsk }: { onOpen: (i: ArchiveIte
                           <p className="text-sm text-white/60">الجواب باختصار</p>
                           <p className="mt-2 text-lg leading-relaxed text-white/95">{f.excerpt}</p>
                           <p className="mt-3 text-base leading-relaxed text-white/70">{f.body}</p>
-                          <button onClick={() => onOpen(f)} className="mt-5 flex min-h-11 items-center gap-1.5 text-base font-bold text-[#9EE4A9] hover:gap-2.5">
+                          <button onClick={() => onOpen(f)} className="mt-5 flex min-h-11 items-center gap-1.5 text-base font-bold text-[#D4AF6A] hover:gap-2.5">
                             اقرأ الفتوى كاملة
                             <ArrowLeft className="h-4 w-4" />
                           </button>
@@ -99,9 +99,9 @@ export default function FatwaSection({ onOpen, onAsk }: { onOpen: (i: ArchiveIte
         </div>
 
         {/* ===== Centered, prominent "didn't find it?" block ===== */}
-        <Reveal variant="zoom" className="relative mt-20 overflow-hidden rounded-[2.5rem] border border-[#9EE4A9]/40 bg-[#0B0B0B] px-6 py-14 text-center sm:px-12">
-          <div className="pointer-events-none absolute -top-32 left-1/2 h-64 w-[80%] -translate-x-1/2 rounded-[50%] bg-[#9EE4A9]/15 blur-3xl" />
-          <span className="relative mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-[#9EE4A9] text-black">
+        <Reveal variant="zoom" className="relative mt-20 overflow-hidden rounded-[2.5rem] border border-[#D4AF6A]/40 bg-[#071b14] px-6 py-14 text-center sm:px-12">
+          <div className="pointer-events-none absolute -top-32 left-1/2 h-64 w-[80%] -translate-x-1/2 rounded-[50%] bg-[#D4AF6A]/15 blur-3xl" />
+          <span className="relative mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-[#D4AF6A] text-black">
             <MessageCircleQuestion className="h-8 w-8" />
           </span>
           <h3 className="font-display relative mt-6 text-3xl sm:text-5xl">لم تجد سؤالك؟</h3>
@@ -124,9 +124,9 @@ export default function FatwaSection({ onOpen, onAsk }: { onOpen: (i: ArchiveIte
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="مثال: هل يجوز الجمع بين الصلاتين في العمل؟"
-              className="h-16 flex-1 rounded-2xl border border-white/20 bg-black px-5 text-lg text-white outline-none placeholder:text-white/45 focus:border-[#9EE4A9]"
+              className="h-16 flex-1 rounded-2xl border border-white/20 bg-black px-5 text-lg text-white outline-none placeholder:text-white/45 focus:border-[#D4AF6A]"
             />
-            <button type="submit" className="flex h-16 items-center justify-center gap-2 rounded-2xl bg-[#9EE4A9] px-8 text-lg font-bold text-black transition hover:bg-white">
+            <button type="submit" className="flex h-16 items-center justify-center gap-2 rounded-2xl bg-[#D4AF6A] px-8 text-lg font-bold text-black transition hover:bg-white">
               <Search className="h-6 w-6" />
               ابحث بكلماتك
             </button>

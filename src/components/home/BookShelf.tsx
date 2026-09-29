@@ -6,10 +6,10 @@ import { BOOKS, type Book, type Tone } from "@/app/home-media";
 import Reveal, { useInView } from "./Reveal";
 
 const TONE: Record<Tone, { bg: string; fg: string; line: string; edge: string }> = {
-  mint: { bg: "#9EE4A9", fg: "#000", line: "rgba(0,0,0,0.22)", edge: "#7cc488" },
-  cream: { bg: "#F2EDDD", fg: "#000", line: "rgba(0,0,0,0.18)", edge: "#d6cfbb" },
-  black: { bg: "#141414", fg: "#fff", line: "rgba(255,255,255,0.2)", edge: "#000" },
-  gray: { bg: "#2B2B2B", fg: "#fff", line: "rgba(255,255,255,0.2)", edge: "#1a1a1a" },
+  gold: { bg: "#D4AF6A", fg: "#04100c", line: "rgba(4,16,12,0.25)", edge: "#B8934C" },
+  cream: { bg: "#F2EDDD", fg: "#04100c", line: "rgba(4,16,12,0.18)", edge: "#d6cfbb" },
+  black: { bg: "#0A1F17", fg: "#F5F0E3", line: "rgba(245,240,227,0.2)", edge: "#000" },
+  gray: { bg: "#16241D", fg: "#F5F0E3", line: "rgba(245,240,227,0.2)", edge: "#0b1610" },
 };
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -24,7 +24,7 @@ function Cover({ b, active }: { b: Book; active: boolean }) {
         color: t.fg,
         border: b.tone === "black" ? "1px solid rgba(255,255,255,0.14)" : undefined,
         boxShadow: active
-          ? `-7px 7px 0 -2px ${t.edge}, 0 40px 70px rgba(0,0,0,0.75), 0 0 0 2px rgba(158,228,169,0.9)`
+          ? `-7px 7px 0 -2px ${t.edge}, 0 40px 70px rgba(0,0,0,0.75), 0 0 0 2px rgba(212,175,106,0.9)`
           : `-6px 6px 0 -2px ${t.edge}, 0 30px 50px rgba(0,0,0,0.7)`,
       }}
     >
@@ -64,7 +64,7 @@ export default function BookShelf({ onRead }: { onRead: (itemId?: number) => voi
     <section id="books" className="scroll-mt-24 overflow-x-clip border-t border-white/10">
       <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8">
         <Reveal variant="blur" className="flex flex-col items-center text-center">
-          <p className="text-base text-[#9EE4A9]">المكتبة</p>
+          <p className="text-base text-[#D4AF6A]">المكتبة</p>
           <h2 className="font-display mt-2 text-4xl sm:text-6xl">مؤلفات الشيخ</h2>
           <p className="mt-4 max-w-xl text-lg text-white/70">تصفّح الكتب كما تتصفّحها في مكتبة حقيقية، واضغط على أي كتاب لتقرأ نبذة عنه.</p>
         </Reveal>
@@ -93,7 +93,7 @@ export default function BookShelf({ onRead }: { onRead: (itemId?: number) => voi
           className="relative mx-auto mt-14 h-[330px] touch-pan-y select-none [--gap:118px] [perspective:1800px] sm:h-[400px] sm:[--gap:180px]"
         >
           {/* floor glow */}
-          <div className="pointer-events-none absolute bottom-0 left-1/2 h-16 w-[70%] -translate-x-1/2 rounded-[50%] bg-[#9EE4A9]/10 blur-2xl" />
+          <div className="pointer-events-none absolute bottom-0 left-1/2 h-16 w-[70%] -translate-x-1/2 rounded-[50%] bg-[#D4AF6A]/10 blur-2xl" />
 
           {BOOKS.map((bk, i) => {
             const off = i - sel;
@@ -136,7 +136,7 @@ export default function BookShelf({ onRead }: { onRead: (itemId?: number) => voi
           <button
             onClick={() => go(-1)}
             disabled={sel === 0}
-            className="flex h-12 items-center gap-2 rounded-full border border-white/20 px-5 text-base transition hover:border-[#9EE4A9] disabled:opacity-30"
+            className="flex h-12 items-center gap-2 rounded-full border border-white/20 px-5 text-base transition hover:border-[#D4AF6A] disabled:opacity-30"
           >
             <ChevronRight className="h-5 w-5" /> السابق
           </button>
@@ -146,7 +146,7 @@ export default function BookShelf({ onRead }: { onRead: (itemId?: number) => voi
           <button
             onClick={() => go(1)}
             disabled={sel === BOOKS.length - 1}
-            className="flex h-12 items-center gap-2 rounded-full border border-white/20 px-5 text-base transition hover:border-[#9EE4A9] disabled:opacity-30"
+            className="flex h-12 items-center gap-2 rounded-full border border-white/20 px-5 text-base transition hover:border-[#D4AF6A] disabled:opacity-30"
           >
             التالي <ChevronLeft className="h-5 w-5" />
           </button>
@@ -167,10 +167,10 @@ export default function BookShelf({ onRead }: { onRead: (itemId?: number) => voi
           <h3 className="font-display mt-5 text-3xl leading-tight sm:text-4xl">{b.title}</h3>
           <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-white/70">{b.desc}</p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <button onClick={() => onRead(b.itemId)} className="flex min-h-12 items-center gap-2 rounded-full bg-white px-6 text-base font-bold text-black transition hover:bg-[#9EE4A9]">
+            <button onClick={() => onRead(b.itemId)} className="flex min-h-12 items-center gap-2 rounded-full bg-white px-6 text-base font-bold text-black transition hover:bg-[#D4AF6A]">
               <BookOpen className="h-5 w-5" /> اقرأ نبذة
             </button>
-            <a href="#store" className="flex min-h-12 items-center gap-2 rounded-full border border-white/25 px-6 text-base font-bold transition hover:border-[#9EE4A9] hover:text-[#9EE4A9]">
+            <a href="#store" className="flex min-h-12 items-center gap-2 rounded-full border border-white/25 px-6 text-base font-bold transition hover:border-[#D4AF6A] hover:text-[#D4AF6A]">
               <ShoppingBag className="h-5 w-5" /> اطلب نسخة مطبوعة
             </a>
           </div>
@@ -184,7 +184,7 @@ export default function BookShelf({ onRead }: { onRead: (itemId?: number) => voi
               onClick={() => setSel(i)}
               aria-current={i === sel}
               className={`min-h-10 rounded-full border px-4 text-sm transition ${
-                i === sel ? "border-[#9EE4A9] bg-[#9EE4A9] text-black" : "border-white/15 text-white/70 hover:border-white/40 hover:text-white"
+                i === sel ? "border-[#D4AF6A] bg-[#D4AF6A] text-black" : "border-white/15 text-white/70 hover:border-white/40 hover:text-white"
               }`}
             >
               {bk.short}

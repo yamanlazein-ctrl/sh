@@ -36,7 +36,7 @@ export default function VideoSection() {
       <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8">
         <div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <Reveal variant="wipe">
-            <p className="text-base text-[#9EE4A9]">المرئيات</p>
+            <p className="text-base text-[#D4AF6A]">المرئيات</p>
             <h2 className="font-display mt-2 text-4xl leading-tight sm:text-6xl">
               شاهِد الشيخ
               <br />
@@ -49,7 +49,7 @@ export default function VideoSection() {
                 key={s}
                 onClick={() => setSeries(s)}
                 className={`min-h-10 rounded-full border px-4 text-base transition ${
-                  series === s ? "border-[#9EE4A9] bg-[#9EE4A9] text-black" : "border-white/15 text-white/70 hover:text-white"
+                  series === s ? "border-[#D4AF6A] bg-[#D4AF6A] text-black" : "border-white/15 text-white/70 hover:text-white"
                 }`}
               >
                 {s}
@@ -61,7 +61,7 @@ export default function VideoSection() {
         <div className="grid gap-6 lg:grid-cols-12">
           {/* Featured player */}
           <Reveal variant="tilt" className="lg:col-span-8">
-            <div className="group relative aspect-video overflow-hidden rounded-3xl border border-white/10 bg-[#0A0A0A]">
+            <div className="group relative aspect-video overflow-hidden rounded-3xl border border-white/10 bg-[#071b14]">
               {playing && v.youtubeId ? (
                 <iframe
                   className="absolute inset-0 h-full w-full"
@@ -84,14 +84,14 @@ export default function VideoSection() {
 
                   <button
                     onClick={() => setPlaying(true)}
-                    className="ring-pulse absolute left-1/2 top-1/2 z-10 grid h-20 w-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-[#9EE4A9] text-black transition hover:scale-110"
+                    className="ring-pulse absolute left-1/2 top-1/2 z-10 grid h-20 w-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-[#D4AF6A] text-black transition hover:scale-110"
                     aria-label={`تشغيل: ${v.title}`}
                   >
                     <Play className="h-8 w-8 translate-x-[-2px] fill-black" />
                   </button>
 
                   <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-                    <p className="text-base text-[#9EE4A9]">{v.series}</p>
+                    <p className="text-base text-[#D4AF6A]">{v.series}</p>
                     <h3 className="font-display mt-1 text-2xl sm:text-4xl">{v.title}</h3>
                     <p className="mt-2 text-sm text-white/70">{v.views}</p>
                   </div>
@@ -101,7 +101,7 @@ export default function VideoSection() {
                       <div>
                         <p className="font-display text-2xl">هنا يُعرض الفيديو من يوتيوب</p>
                         <p className="mt-2 text-base text-white/70">معاينة تصميم — يُضاف رابط الفيديو من لوحة الإدارة</p>
-                        <button onClick={() => setPlaying(false)} className="mx-auto mt-6 flex min-h-11 items-center gap-2 rounded-full border border-white/25 px-5 text-base hover:border-[#9EE4A9]">
+                        <button onClick={() => setPlaying(false)} className="mx-auto mt-6 flex min-h-11 items-center gap-2 rounded-full border border-white/25 px-5 text-base hover:border-[#D4AF6A]">
                           <X className="h-4 w-4" /> رجوع
                         </button>
                       </div>
@@ -114,10 +114,10 @@ export default function VideoSection() {
 
           {/* Playlist with its own small search */}
           <Reveal variant="left" delay={0.2} className="lg:col-span-4">
-            <div className="flex h-full flex-col rounded-3xl border border-white/10 bg-[#0A0A0A]">
+            <div className="flex h-full flex-col rounded-3xl border border-white/10 bg-[#071b14]">
               <div className="border-b border-white/10 p-3">
                 <label htmlFor="video-search" className="sr-only">ابحث في المرئيات</label>
-                <div className="flex h-12 items-center gap-2 rounded-2xl border border-white/15 bg-black px-3 focus-within:border-[#9EE4A9]">
+                <div className="flex h-12 items-center gap-2 rounded-2xl border border-white/15 bg-black px-3 focus-within:border-[#D4AF6A]">
                   <Search className="h-5 w-5 shrink-0 text-white/60" />
                   <input
                     id="video-search"
@@ -140,7 +140,7 @@ export default function VideoSection() {
                 {list.length === 0 ? (
                   <div className="px-4 py-10 text-center">
                     <p className="text-base text-white/80">لا توجد مقاطع بهذا الاسم.</p>
-                    <button onClick={() => { setQ(""); setSeries("الكل"); }} className="mt-3 min-h-10 rounded-full border border-white/20 px-4 text-sm hover:border-[#9EE4A9]">
+                    <button onClick={() => { setQ(""); setSeries("الكل"); }} className="mt-3 min-h-10 rounded-full border border-white/20 px-4 text-sm hover:border-[#D4AF6A]">
                       عرض كل المقاطع
                     </button>
                   </div>
@@ -156,7 +156,7 @@ export default function VideoSection() {
                         }}
                         className={`relative flex w-full items-center gap-3 rounded-2xl p-2.5 text-right transition ${on ? "bg-white/[0.08]" : "hover:bg-white/[0.04]"}`}
                       >
-                        {on && <span className="absolute inset-y-3 right-0 w-[3px] rounded-full bg-[#9EE4A9]" />}
+                        {on && <span className="absolute inset-y-3 right-0 w-[3px] rounded-full bg-[#D4AF6A]" />}
                         <span className="w-5 text-center font-sans text-sm text-white/55">{on ? "▶" : i + 1}</span>
                         <span className="relative aspect-video w-28 shrink-0 overflow-hidden rounded-xl">
                           <img src={item.poster} alt="" className={`h-full w-full object-cover ${on ? "" : "grayscale"}`} />
@@ -166,7 +166,7 @@ export default function VideoSection() {
                           <span className={`line-clamp-2 text-base leading-snug ${on ? "text-white" : "text-white/80"}`}>
                             {highlight(item.title, tokens).map((p, k) =>
                               p.hit ? (
-                                <mark key={k} className="rounded bg-[#9EE4A9]/25 px-0.5 text-[#9EE4A9]">{p.text}</mark>
+                                <mark key={k} className="rounded bg-[#D4AF6A]/25 px-0.5 text-[#D4AF6A]">{p.text}</mark>
                               ) : (
                                 <span key={k}>{p.text}</span>
                               )

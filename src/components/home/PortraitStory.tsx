@@ -61,24 +61,24 @@ export default function PortraitStory() {
           className="absolute inset-0 h-full w-full object-cover object-[50%_20%] grayscale"
           style={{ transform: `scale(${scale})`, willChange: "transform" }}
         />
-        <div className="absolute inset-0 bg-[#9EE4A9] opacity-[0.16] mix-blend-color" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/55 to-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_45%,rgba(0,0,0,0.25),rgba(0,0,0,0.85))]" />
+        <div className="absolute inset-0 bg-[#D4AF6A] opacity-[0.16] mix-blend-color" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/55 to-ink" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_45%,rgba(4,16,12,0.25),rgba(4,16,12,0.85))]" />
 
         {/* thin progress rail */}
         <div className="absolute inset-y-24 right-5 w-px bg-white/15 sm:right-8" aria-hidden>
-          <div className="w-full bg-[#9EE4A9]" style={{ height: `${progress * 100}%` }} />
+          <div className="w-full bg-[#D4AF6A]" style={{ height: `${progress * 100}%` }} />
         </div>
 
         <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center px-8 text-center sm:px-12">
-          <p className="text-base text-[#9EE4A9]">إرث عالِم واحد · في مكانٍ واحد</p>
+          <p className="text-base text-[#D4AF6A]">إرث عالِم واحد · في مكانٍ واحد</p>
           <h2 id="story-title" className="font-display mt-6 text-[2rem] leading-[1.45] sm:text-5xl md:text-6xl">
             {WORDS.map((w, i) => {
               const on = i < lit;
               return (
                 <span
                   key={i}
-                  className={`inline-block transition-all duration-500 ${on ? (KEY_WORDS.has(w) ? "text-[#9EE4A9]" : "text-white") : "text-white/15"}`}
+                  className={`inline-block transition-all duration-500 ${on ? (KEY_WORDS.has(w) ? "text-[#D4AF6A]" : "text-white") : "text-white/15"}`}
                   style={{ transform: on ? "translateY(0)" : "translateY(0.12em)" }}
                 >
                   {w}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { memo, useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Search,
   BookOpen,
@@ -43,6 +43,7 @@ import Intro from "@/components/home/Intro";
 import Reveal from "@/components/home/Reveal";
 import PortraitStory from "@/components/home/PortraitStory";
 import ReadingToolbar from "@/components/home/ReadingToolbar";
+import HeroCinema from "@/components/home/HeroCinema";
 import { PrefsProvider } from "@/components/home/prefs";
 import { useVoiceSearch, useReadAloud } from "@/components/home/voice";
 
@@ -78,9 +79,6 @@ const INTENTS: Intent[] = [
 const EXAMPLES = ["تأخير الصلاة بسبب العمل", "ميراث البنت", "تفسير سورة الكهف", "زكاة المال", "الصيام للحامل"];
 const ROTATING = ["العلم", "التفسير", "الفتوى", "التعليم"];
 
-// depth: rows alternate in size, the middle one uses the display face
-const ROW_SIZE = ["text-sm", "text-lg", "text-sm", "text-2xl", "text-sm", "text-lg", "text-sm"];
-
 const TAPE_A = ["صفوة التفاسير", "روائع البيان", "التبيان في علوم القرآن", "المواريث في الشريعة", "من كنوز السنة"];
 const TAPE_B = ["٣٤٠٠ فتوى", "٨٥٠ درساً وخطبة", "٦٠٠ مقال وبحث", "٥٠ كتاباً", "سبعون عاماً من العلم"];
 
@@ -107,7 +105,6 @@ function Home() {
   const [ready, setReady] = useState(false);
   const [activeSec, setActiveSec] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const heroRef = useRef<HTMLElement | null>(null);
 
   /* ---------- search ---------- */
   const currentIntent = INTENTS.find((x) => x.id === intent) || null;
@@ -119,9 +116,6 @@ function Home() {
   }, [query, currentIntent]);
 
   const hasSearch = query.trim().length > 0 || intent !== null;
-  // River only re-renders when the *set* of matches changes, not on every keystroke
-  const matchKey = hasSearch ? results.map((r) => r.id).join(",") : "";
-  const matchIds = useMemo(() => new Set(matchKey ? matchKey.split(",").map(Number) : []), [matchKey]);
   const shown = results.slice(0, 6);
 
   useEffect(() => setActive(0), [query, intent]);
@@ -221,29 +215,6 @@ function Home() {
     setTimeout(() => inputRef.current?.focus(), 450);
   };
 
-  /* ---------- flashlight over the library ---------- */
-  const onHeroMove = (e: React.MouseEvent) => {
-    const el = heroRef.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    el.style.setProperty("--my", `${e.clientY - r.top}px`);
-  };
-  const onHeroLeave = () => {
-    heroRef.current?.style.setProperty("--mx", "-999px");
-    heroRef.current?.style.setProperty("--my", "-999px");
-  };
-
-  /* ---------- river rows ---------- */
-  const rows = useMemo(() => {
-    const out: ArchiveItem[][] = [];
-    for (let r = 0; r < 7; r++) {
-      const shift = (r * 5) % ITEMS.length;
-      out.push([...ITEMS.slice(shift), ...ITEMS.slice(0, shift)]);
-    }
-    return out;
-  }, []);
-
   const showPanel = focused && hasSearch;
   const searching = focused && query.trim().length > 0;
 
@@ -271,7 +242,7 @@ function Home() {
           }`}
         >
           <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-2.5">
-            <span className="font-display grid h-8 w-8 place-items-center rounded-full bg-[#9EE4A9] text-lg text-black">ص</span>
+            <span className="font-display grid h-8 w-8 place-items-center rounded-full bg-[#D4AF6A] text-lg text-black">ص</span>
             <span className="font-display text-lg">الصابوني</span>
           </button>
 
@@ -284,7 +255,7 @@ function Home() {
                   activeSec === s.id ? "bg-white/10 text-white" : "text-white/55 hover:text-white"
                 }`}
               >
-                {activeSec === s.id && <span className="absolute -top-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-[#9EE4A9]" />}
+                {activeSec === s.id && <span className="absolute -top-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-[#D4AF6A]" />}
                 {s.label}
               </button>
             ))}
@@ -293,7 +264,7 @@ function Home() {
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => jumpToSearch(null)}
-              className={`hidden items-center gap-2 rounded-full border border-white/15 px-3.5 py-1.5 text-sm text-white/70 transition-all duration-500 hover:border-[#9EE4A9] hover:text-white sm:flex ${
+              className={`hidden items-center gap-2 rounded-full border border-white/15 px-3.5 py-1.5 text-sm text-white/70 transition-all duration-500 hover:border-[#D4AF6A] hover:text-white sm:flex ${
                 pastHero ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
               }`}
               aria-label="ابحث"
@@ -302,7 +273,7 @@ function Home() {
               ابحث
               <kbd className="rounded border border-white/15 px-1.5 text-xs text-white/55">/</kbd>
             </button>
-            <a href="#store" className="rounded-full bg-[#9EE4A9] px-5 py-2 text-sm font-bold text-black transition hover:bg-white">
+            <a href="#store" className="rounded-full bg-[#D4AF6A] px-5 py-2 text-sm font-bold text-ink transition hover:bg-gold2">
               المتجر
             </a>
             <button onClick={() => setMenu(!menu)} className="grid h-10 w-10 place-items-center rounded-full lg:hidden" aria-label="القائمة">
@@ -330,7 +301,7 @@ function Home() {
                 setMenu(false);
                 jumpToSearch(null);
               }}
-              className="mt-1 flex w-full items-center gap-2 rounded-2xl bg-white/5 px-4 py-3 text-right text-[#9EE4A9]"
+              className="mt-1 flex w-full items-center gap-2 rounded-2xl bg-white/5 px-4 py-3 text-right text-[#D4AF6A]"
             >
               <Search className="h-4 w-4" /> ابحث في الأرشيف
             </button>
@@ -338,35 +309,16 @@ function Home() {
         )}
       </header>
 
-      {/* ================= HERO: THE LIVING LIBRARY ================= */}
+      {/* ================= HERO: الفيلم السينمائي للشيخ ================= */}
       <section
         key={ready ? "hero-on" : "hero-off"}
-        ref={heroRef}
-        onMouseMove={onHeroMove}
-        onMouseLeave={onHeroLeave}
         className="relative flex min-h-[100svh] flex-col justify-center overflow-x-clip pt-24"
-        style={{ ["--mx" as string]: "-999px", ["--my" as string]: "-999px" } as React.CSSProperties}
       >
-        {/* base river (clickable) */}
-        <River rows={rows} matchIds={matchIds} hasSearch={hasSearch} spot={false} onOpen={setOpen} />
+        {/* الخلفية: فيديو الشيخ (تلاوة/فتوى) أو مشاهد سينمائية متحركة */}
+        <HeroCinema />
 
-        {/* flashlight layer: same river, brighter, revealed around the cursor */}
-        {!hasSearch && (
-        <div
-          className={`pointer-events-none absolute inset-0 transition-opacity duration-500 ${hasSearch ? "opacity-0" : "opacity-100"}`}
-          style={{
-            WebkitMaskImage:
-              "radial-gradient(260px circle at var(--mx) var(--my), #000 0%, rgba(0,0,0,0.45) 45%, transparent 75%)",
-            maskImage:
-              "radial-gradient(260px circle at var(--mx) var(--my), #000 0%, rgba(0,0,0,0.45) 45%, transparent 75%)",
-          }}
-        >
-          <River rows={rows} matchIds={matchIds} hasSearch={hasSearch} spot onOpen={setOpen} />
-        </div>
-        )}
-
-        {/* center vignette */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_52%_48%_at_50%_50%,#000_48%,rgba(0,0,0,0.8)_68%,transparent_100%)]" />
+        {/* تعمّة خفيفة خلف النص لضمان القراءة */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_52%_at_50%_52%,rgba(4,16,12,0.72)_36%,rgba(4,16,12,0.28)_72%,transparent_100%)]" />
 
         <div className="relative z-20 mx-auto w-full max-w-3xl px-5 text-center">
           <div
@@ -375,8 +327,12 @@ function Home() {
             aria-hidden={searching}
           >
           <div className="min-h-0 overflow-hidden">
-          <p className="rise mb-6 text-sm tracking-[0.15em] text-[#9EE4A9]" style={{ animationDelay: "0.25s" }}>
-            الأرشيف الرسمي للعلّامة محمد علي الصابوني · ١٩٣٠ — ٢٠٢١
+          <p className="rise mb-6 flex flex-wrap items-center justify-center gap-4" style={{ animationDelay: "0.25s" }}>
+            <span className="hairline-gold hidden w-14 sm:block" aria-hidden />
+            <span className="text-[13px] tracking-[0.18em] text-gold2">
+              الأرشيف الرسمي للعلّامة محمد علي الصابوني · ١٩٣٠ — ٢٠٢١
+            </span>
+            <span className="hairline-gold hidden w-14 sm:block" aria-hidden />
           </p>
 
           <h1 className="font-display text-[2.5rem] leading-[1.25] sm:text-6xl md:text-7xl">
@@ -386,7 +342,7 @@ function Home() {
               <img src="/images/sheikh-portrait.jpg" alt="الشيخ محمد علي الصابوني" className="h-full w-full object-cover object-top grayscale transition duration-500 group-hover/p:grayscale-0" />
             </span>
             من{" "}
-            <span className="relative inline-grid overflow-hidden align-bottom text-[#9EE4A9]" style={{ height: "1.3em" }}>
+            <span className="relative inline-grid overflow-hidden align-bottom gold-text" style={{ height: "1.3em" }}>
               {ROTATING.map((w, i) => {
                 const prev = (word - 1 + ROTATING.length) % ROTATING.length;
                 const state = i === word ? "translate-y-0 opacity-100" : i === prev ? "-translate-y-full opacity-0" : "translate-y-full opacity-0";
@@ -401,7 +357,7 @@ function Home() {
             <span className="line-mask">
               <span className="line-in relative" style={{ animationDelay: "0.5s" }}>
                 على بُعد سؤال.
-                <span className="grow-x absolute inset-x-0 bottom-0 h-[0.1em] rounded-full bg-[#9EE4A9]/70" style={{ animationDelay: "1.15s" }} />
+                <span className="grow-x absolute inset-x-0 bottom-0 h-[0.1em] rounded-full bg-[#D4AF6A]/70" style={{ animationDelay: "1.15s" }} />
               </span>
             </span>
           </h1>
@@ -414,17 +370,17 @@ function Home() {
               ابحث في أرشيف الشيخ
             </label>
             <div
-              className={`relative flex items-center gap-3 rounded-2xl border bg-[#0B0B0B] px-5 py-4 transition-all duration-300 ${
-                focused ? "border-[#9EE4A9] shadow-[0_0_0_6px_rgba(158,228,169,0.12)]" : "border-white/15"
+              className={`relative flex items-center gap-3 rounded-2xl border bg-[#071b14] px-5 py-4 transition-all duration-300 ${
+                focused ? "border-[#D4AF6A] shadow-[0_0_0_6px_rgba(212,175,106,0.12)]" : "border-white/15"
               }`}
             >
-              <Search className={`h-6 w-6 shrink-0 ${focused ? "text-[#9EE4A9]" : "text-white/55"}`} />
+              <Search className={`h-6 w-6 shrink-0 ${focused ? "text-[#D4AF6A]" : "text-white/55"}`} />
 
               {currentIntent && (
                 <button
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => setIntent(null)}
-                  className="flex shrink-0 items-center gap-1 rounded-lg bg-[#9EE4A9] px-2.5 py-1 text-xs font-bold text-black"
+                  className="flex shrink-0 items-center gap-1 rounded-lg bg-[#D4AF6A] px-2.5 py-1 text-xs font-bold text-black"
                   title="إزالة النطاق"
                 >
                   {currentIntent.scope}
@@ -471,7 +427,7 @@ function Home() {
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => (voice.listening ? voice.stop() : voice.start())}
                   className={`flex h-11 shrink-0 items-center gap-2 rounded-full px-3 text-sm font-bold transition ${
-                    voice.listening ? "listening bg-[#9EE4A9] text-black" : "bg-white/10 text-white hover:bg-white/20"
+                    voice.listening ? "listening bg-[#D4AF6A] text-black" : "bg-white/10 text-white hover:bg-white/20"
                   }`}
                   aria-label={voice.listening ? "إيقاف الاستماع" : "ابحث بصوتك"}
                   title="ابحث بصوتك"
@@ -483,7 +439,7 @@ function Home() {
             </div>
 
             {showPanel && (
-              <div className="absolute inset-x-0 top-full z-40 mt-2 flex max-h-[min(58vh,520px)] flex-col overflow-hidden rounded-2xl border border-white/15 bg-[#0B0B0B] text-right shadow-[0_30px_80px_rgba(0,0,0,0.9)]" role="listbox" aria-label="نتائج البحث">
+              <div className="absolute inset-x-0 top-full z-40 mt-2 flex max-h-[min(58vh,520px)] flex-col overflow-hidden rounded-2xl border border-white/15 bg-[#071b14] text-right shadow-[0_30px_80px_rgba(0,0,0,0.9)]" role="listbox" aria-label="نتائج البحث">
                 <div className="flex items-center justify-between border-b border-white/5 px-5 py-2.5 text-xs text-white/55">
                   <span>
                     {results.length} نتيجة · خلال {ms.toFixed(2)} ملّي ثانية
@@ -515,7 +471,7 @@ function Home() {
                           >
                             <span
                               className={`mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-lg ${
-                                active === i ? "bg-[#9EE4A9] text-black" : "bg-white/5 text-white/60"
+                                active === i ? "bg-[#D4AF6A] text-black" : "bg-white/5 text-white/60"
                               }`}
                             >
                               <Icon className="h-4 w-4" />
@@ -524,7 +480,7 @@ function Home() {
                               <span className="block truncate font-bold">
                                 {highlight(item.title, tokens).map((p, k) =>
                                   p.hit ? (
-                                    <mark key={k} className="rounded bg-[#9EE4A9]/20 px-0.5 text-[#9EE4A9]">
+                                    <mark key={k} className="rounded bg-[#D4AF6A]/20 px-0.5 text-[#D4AF6A]">
                                       {p.text}
                                     </mark>
                                   ) : (
@@ -560,7 +516,7 @@ function Home() {
                 }}
                 className={`min-h-11 rounded-full border px-5 py-2 text-base transition ${
                   intent === it.id
-                    ? "border-[#9EE4A9] bg-[#9EE4A9] text-black"
+                    ? "border-[#D4AF6A] bg-[#D4AF6A] text-black"
                     : "border-white/15 bg-black/60 text-white/70 backdrop-blur hover:border-white/40 hover:text-white"
                 }`}
               >
@@ -570,16 +526,29 @@ function Home() {
           </div>
         </div>
 
-        {/* bottom status */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-6 z-20 flex flex-col items-center gap-2 text-xs">
-          {hasSearch ? (
-            <span className="rounded-full bg-[#9EE4A9]/10 px-3 py-1 text-[#9EE4A9]">
-              أضأنا {results.length} عنواناً في الأرشيف
-            </span>
-          ) : (
-            <span className="text-white/50">حرّك المؤشر فوق المكتبة · أو اكتب سؤالك لتضيء العناوين المطابقة</span>
-          )}
-          <ChevronDown className="h-4 w-4 animate-bounce text-white/25" />
+        {/* شريط سفلي: أرقام الأرشيف فوق خلفية الفيلم */}
+        <div className="absolute inset-x-0 bottom-0 z-20">
+          <div className="pointer-events-none -translate-y-12 flex justify-center">
+            <ChevronDown className="h-5 w-5 animate-bounce text-gold/60" />
+          </div>
+          <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-8 gap-y-1.5 border-t border-gold/20 bg-ink/50 px-5 py-3.5 text-sm text-ivory/80 backdrop-blur-md">
+            {[
+              { n: "٥٠+", t: "كتاباً" },
+              { n: "٣٤٠٠+", t: "فتوى" },
+              { n: "٨٥٠+", t: "درساً وخطبة" },
+              { n: "٦٠٠+", t: "مقال وبحث" },
+            ].map((s) => (
+              <span key={s.t} className="flex items-baseline gap-1.5">
+                <span className="font-sans text-lg font-black tabular-nums text-gold">{s.n}</span>
+                <span className="text-ivory/70">{s.t}</span>
+              </span>
+            ))}
+            {hasSearch && (
+              <span className="rounded-full bg-gold/15 px-3 py-1 text-xs font-bold text-gold">
+                طابَقنا {results.length} عنواناً في الأرشيف
+              </span>
+            )}
+          </div>
         </div>
       </section>
 
@@ -587,7 +556,7 @@ function Home() {
       <section className="border-t border-white/10" aria-labelledby="how-title">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
           <Reveal variant="blur" as="h2" id="how-title" className="font-display text-2xl sm:text-3xl">
-            أول مرة هنا؟ <span className="text-[#9EE4A9]">الأمر بسيط.</span>
+            أول مرة هنا؟ <span className="text-[#D4AF6A]">الأمر بسيط.</span>
           </Reveal>
           <ol className="mt-8 grid gap-4 md:grid-cols-3">
             {[
@@ -595,8 +564,8 @@ function Home() {
               { n: "٢", t: "اختر ما يناسبك", d: "تظهر لك الكتب والفتاوى والدروس المتعلقة بسؤالك مباشرة، مرتّبة من الأقرب." },
               { n: "٣", t: "اقرأ أو استمع", d: "كبّر الخط كما تحب، أو اضغط «استمع للنص» ليقرأه لك الموقع، وشاركه مع أهلك." },
             ].map((s, i) => (
-              <Reveal as="li" variant="up" delay={0.1 + i * 0.14} key={s.n} className="flex gap-4 rounded-3xl border border-white/10 bg-[#0A0A0A] p-6">
-                <span className="font-display grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-[#9EE4A9] text-3xl text-black">{s.n}</span>
+              <Reveal as="li" variant="up" delay={0.1 + i * 0.14} key={s.n} className="flex gap-4 rounded-3xl border border-white/10 bg-[#071b14] p-6">
+                <span className="font-display grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-[#D4AF6A] text-3xl text-black">{s.n}</span>
                 <span>
                   <span className="font-display block text-xl">{s.t}</span>
                   <span className="mt-2 block text-base leading-relaxed text-white/70">{s.d}</span>
@@ -606,7 +575,7 @@ function Home() {
           </ol>
           <button
             onClick={() => jumpToSearch(null)}
-            className="mt-8 flex min-h-12 items-center gap-2 rounded-full bg-white px-6 text-base font-bold text-black transition hover:bg-[#9EE4A9]"
+            className="mt-8 flex min-h-12 items-center gap-2 rounded-full bg-white px-6 text-base font-bold text-black transition hover:bg-[#D4AF6A]"
           >
             <Search className="h-5 w-5" /> جرّب الآن
           </button>
@@ -615,7 +584,7 @@ function Home() {
 
       {/* ================= KINETIC TAPES (moving text) ================= */}
       <section aria-hidden className="overflow-hidden border-t border-white/10">
-        <Reveal variant="right" className="bg-[#9EE4A9] py-5" dir="ltr">
+        <Reveal variant="right" className="bg-[#D4AF6A] py-5" dir="ltr">
           <Marquee items={TAPE_A} duration={40} itemClass="font-display text-4xl text-black sm:text-6xl" sep="text-black/40" />
         </Reveal>
         <Reveal variant="left" delay={0.15} className="border-b border-white/10 py-5" dir="ltr">
@@ -647,7 +616,7 @@ function Home() {
                 onClick={row.go}
                 className="group relative flex w-full items-center gap-6 overflow-hidden border-b border-white/10 py-7 text-right sm:gap-10"
               >
-                <span className="absolute inset-0 origin-right scale-x-0 bg-[#9EE4A9] transition-transform duration-500 ease-[cubic-bezier(.2,.7,.1,1)] group-hover:scale-x-100" />
+                <span className="absolute inset-0 origin-right scale-x-0 bg-[#D4AF6A] transition-transform duration-500 ease-[cubic-bezier(.2,.7,.1,1)] group-hover:scale-x-100" />
                 <span className="relative w-10 text-sm text-white/55 transition group-hover:text-black/50">{row.no}</span>
 
                 <span className="relative min-w-0 flex-1 overflow-hidden">
@@ -688,7 +657,7 @@ function Home() {
 
       {/* divider tape */}
       <Reveal as="section" variant="blur" aria-hidden className="overflow-hidden border-y border-white/10 py-6" dir="ltr">
-        <Marquee items={["شاهِد", "استمِع", "اقرأ", "اسأل"]} duration={30} itemClass="font-display text-stroke text-5xl sm:text-7xl" sep="text-[#9EE4A9]" />
+        <Marquee items={["شاهِد", "استمِع", "اقرأ", "اسأل"]} duration={30} itemClass="font-display text-stroke text-5xl sm:text-7xl" sep="text-[#D4AF6A]" />
       </Reveal>
 
       {/* ================= VIDEOS ================= */}
@@ -697,41 +666,71 @@ function Home() {
       {/* ================= AUDIO ================= */}
       <AudioSection />
 
-      {/* ================= THE SHEIKH ================= */}
-      <section id="sheikh" className="scroll-mt-24 border-t border-white/10">
+      {/* ================= THE SHEIKH — تعريف بالشيخ مع لمحة فيديو ================= */}
+      <section id="sheikh" className="relative scroll-mt-24 overflow-hidden border-t border-white/10">
+        {/* وهج زمردي خلفي خفيف */}
+        <div className="pointer-events-none absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-emd/25 blur-[120px]" aria-hidden />
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-24 sm:px-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <Reveal variant="curtain" className="relative aspect-[4/5] overflow-hidden rounded-2xl">
-              <img src="/images/sheikh-portrait.jpg" alt="الشيخ محمد علي الصابوني" className="h-full w-full object-cover object-top grayscale contrast-125" />
-              <div className="absolute inset-0 bg-[#9EE4A9] mix-blend-multiply" />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-                <p className="font-display text-2xl text-white">محمد علي الصابوني</p>
-                <p className="text-sm text-white/70">مفسّر · فقيه · معلّم</p>
+            <Reveal variant="curtain" className="ornate-corner relative aspect-[4/5] overflow-hidden rounded-2xl border border-gold/25">
+              <img src="/images/sheikh-portrait.jpg" alt="الشيخ محمد علي الصابوني" className="h-full w-full object-cover object-top" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-transparent to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <p className="font-display text-2xl text-ivory">محمد علي الصابوني</p>
+                <p className="mt-0.5 text-sm text-gold2">مفسّر · فقيه · معلّم</p>
               </div>
+            </Reveal>
+
+            {/* لمحة فيديو: تلاوة فجرية / فتوى */}
+            <Reveal variant="up" delay={0.25} className="mt-5">
+              <button
+                onClick={() => scrollToId("videos")}
+                className="group relative block w-full overflow-hidden rounded-2xl border border-gold/25 text-right"
+                aria-label="شاهد لمحة فيديو عن الشيخ"
+              >
+                <div className="relative h-40 sm:h-44">
+                  <img
+                    src="/images/sheikh-video-poster-1.jpg"
+                    alt=""
+                    className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-l from-ink/85 via-ink/35 to-transparent" />
+                  <span className="ring-pulse absolute left-5 top-1/2 grid h-14 w-14 -translate-y-1/2 place-items-center rounded-full bg-gold text-ink transition group-hover:scale-110">
+                    <Play className="h-6 w-6 fill-current" />
+                  </span>
+                  <span className="absolute bottom-4 right-5">
+                    <span className="block text-sm font-bold text-gold2">لمحة فيديو · تلاوة وفتوى</span>
+                    <span className="mt-0.5 block text-xs text-ivory/70">من أرشيف المرئيات — شاهد الآن</span>
+                  </span>
+                </div>
+              </button>
             </Reveal>
           </div>
 
           <Reveal variant="blur" delay={0.2} className="flex flex-col justify-center lg:col-span-7">
-            <p className="text-base text-[#9EE4A9]">من هو الشيخ</p>
+            <p className="flex items-center gap-3 text-base text-gold">
+              <span className="hairline-gold w-10" aria-hidden />
+              من هو الشيخ
+            </p>
             <h2 className="font-display mt-3 text-4xl leading-tight sm:text-5xl">
               من حلقات حلب
               <br />
-              إلى أروقة الحرم.
+              إلى <span className="gold-text">أروقة الحرم.</span>
             </h2>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/55">
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ivory/60">
               وُلد في حلب، ودرس في الأزهر، ثم قضى عقوداً يدرّس التفسير في مكة المكرمة. كتب «صفوة التفاسير» ليصل معنى القرآن إلى كل قارئ، متخصصاً كان أو غير متخصص.
             </p>
 
-            <div className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-white/10 sm:grid-cols-4">
+            <div className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-gold/15 bg-gold/15 sm:grid-cols-4">
               {[
                 { y: "1930", t: "المولد في حلب" },
                 { y: "1952", t: "التخرج في الأزهر" },
                 { y: "1980", t: "صفوة التفاسير" },
                 { y: "2021", t: "الوفاة في تركيا" },
               ].map((m, mi) => (
-                <Reveal key={m.y} variant="zoom" delay={0.4 + mi * 0.12} className="bg-black p-5">
-                  <p className="font-sans text-2xl font-black text-[#9EE4A9]">{m.y}</p>
-                  <p className="mt-1 text-base text-white/75">{m.t}</p>
+                <Reveal key={m.y} variant="zoom" delay={0.4 + mi * 0.12} className="bg-ink p-5">
+                  <p className="font-sans text-2xl font-black text-gold">{m.y}</p>
+                  <p className="mt-1 text-base text-ivory/75">{m.t}</p>
                 </Reveal>
               ))}
             </div>
@@ -742,15 +741,21 @@ function Home() {
       {/* ================= STORE ================= */}
       <section id="store" className="border-t border-white/10">
         <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
-          <Reveal variant="zoom" className="flex flex-col items-start justify-between gap-8 rounded-3xl bg-[#9EE4A9] p-8 text-black sm:p-12 md:flex-row md:items-center">
-            <div className="max-w-xl">
-              <p className="text-sm font-bold opacity-60">المتجر</p>
-              <h2 className="font-display mt-2 text-3xl leading-tight sm:text-5xl">اقتنِ النسخة المطبوعة.</h2>
-              <p className="mt-4 text-base opacity-70">طبعات معتمدة، وتوصيل داخل سوريا وخارجها، ودفع بالطريقة التي تناسبك.</p>
+          <Reveal
+            variant="zoom"
+            className="ornate-corner relative flex flex-col items-start justify-between gap-8 overflow-hidden rounded-3xl border border-gold/30 bg-gradient-to-l from-emd2 via-emd to-emd2 p-8 text-ivory sm:p-12 md:flex-row md:items-center"
+          >
+            <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-gold/15 blur-[90px]" aria-hidden />
+            <div className="relative max-w-xl">
+              <p className="text-sm font-bold tracking-widest text-gold2">المتجر</p>
+              <h2 className="font-display mt-2 text-3xl leading-tight sm:text-5xl">
+                اقتنِ <span className="gold-text">النسخة المطبوعة.</span>
+              </h2>
+              <p className="mt-4 text-base text-ivory/70">طبعات معتمدة، وتوصيل داخل سوريا وخارجها، ودفع بالطريقة التي تناسبك.</p>
             </div>
-            <div className="flex items-center gap-4">
-              <img src="/images/safwat-tafasir-book.jpg" alt="" className="hidden h-36 w-28 rotate-[-6deg] rounded-lg object-cover shadow-2xl sm:block" />
-              <a href="#store" className="flex items-center gap-2 rounded-full bg-black px-7 py-4 font-bold text-white transition hover:gap-3">
+            <div className="relative flex items-center gap-4">
+              <img src="/images/safwat-tafasir-book.jpg" alt="" className="hidden h-36 w-28 rotate-[-6deg] rounded-lg object-cover shadow-2xl ring-1 ring-gold/40 sm:block" />
+              <a href="#store" className="flex items-center gap-2 rounded-full bg-gold px-7 py-4 font-bold text-ink transition hover:bg-gold2 hover:gap-3">
                 <ShoppingBag className="h-4 w-4" />
                 تصفّح الكتب
                 <ArrowLeft className="h-4 w-4" />
@@ -764,7 +769,7 @@ function Home() {
       <footer className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-10 text-sm text-white/55 sm:flex-row sm:px-8">
           <div className="flex items-center gap-2.5">
-            <span className="font-display grid h-7 w-7 place-items-center rounded-md bg-[#9EE4A9] text-sm text-black">ص</span>
+            <span className="font-display grid h-7 w-7 place-items-center rounded-md bg-[#D4AF6A] text-sm text-black">ص</span>
             <span className="text-white/70">الصابوني — الأرشيف العلمي</span>
           </div>
           <p>صدقة جارية عن روح الشيخ محمد علي الصابوني رحمه الله</p>
@@ -778,55 +783,6 @@ function Home() {
 
 /* ====================================================================== */
 
-const River = memo(function River({
-  rows,
-  matchIds,
-  hasSearch,
-  spot,
-  onOpen,
-}: {
-  rows: ArchiveItem[][];
-  matchIds: Set<number>;
-  hasSearch: boolean;
-  spot: boolean;
-  onOpen: (i: ArchiveItem) => void;
-}) {
-  return (
-    <div className="absolute inset-0 flex flex-col justify-center gap-3 py-16" aria-hidden>
-      {rows.map((row, r) => (
-        <div key={r} className="river-row rise" style={{ animationDelay: `${0.15 + Math.abs(r - 3) * 0.09}s` }}>
-          <div
-            className={`river-track ${r % 2 ? "reverse" : ""}`}
-            style={{ animationDuration: `${80 + r * 14}s`, animationPlayState: hasSearch ? "paused" : "running" }}
-          >
-            {[...row, ...row].map((item, k) => {
-              const hit = matchIds.has(item.id);
-              const look = hit
-                ? "border-[#9EE4A9] bg-[#9EE4A9] text-black"
-                : spot
-                ? "border-white/30 text-white/90"
-                : hasSearch
-                ? "border-white/[0.04] text-white/[0.07]"
-                : "border-white/[0.07] text-white/[0.16] hover:border-white/30 hover:text-white/70";
-              return (
-                <button
-                  key={`${item.id}-${k}`}
-                  dir="rtl"
-                  tabIndex={-1}
-                  onClick={() => onOpen(item)}
-                  className={`shrink-0 rounded-full border px-4 py-2 transition-colors duration-500 ${ROW_SIZE[r]} ${r === 3 ? "font-display" : ""} ${look}`}
-                >
-                  <span className={`ml-2 text-xs font-normal ${hit ? "text-black/60" : "opacity-60"}`}>{TYPE_LABEL[item.type]}</span>
-                  {item.title}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-});
 
 function ReadingDrawer({
   item,
@@ -867,7 +823,7 @@ function ReadingDrawer({
   // colors for dark vs. paper reading mode
   const c = paper
     ? { panel: "bg-[#F2EDDD] text-[#141414] border-black/10", sub: "text-black/65", faint: "text-black/55", line: "border-black/10", chip: "border-black/15 text-black/70", btn: "border-black/15 hover:bg-black/5" }
-    : { panel: "bg-[#0A0A0A] text-white border-white/10", sub: "text-white/75", faint: "text-white/55", line: "border-white/10", chip: "border-white/15 text-white/60", btn: "border-white/15 hover:bg-white/5" };
+    : { panel: "bg-[#071b14] text-white border-white/10", sub: "text-white/75", faint: "text-white/55", line: "border-white/10", chip: "border-white/15 text-white/60", btn: "border-white/15 hover:bg-white/5" };
 
   return (
     <div className="fixed inset-0 z-[70]" role="dialog" aria-modal="true" aria-label={item.title}>
@@ -875,7 +831,7 @@ function ReadingDrawer({
       <aside className={`drawer-in absolute inset-y-0 left-0 flex w-full max-w-2xl flex-col border-r ${c.panel}`}>
         {/* top bar */}
         <div className={`flex items-center justify-between border-b px-5 py-3 ${c.line}`}>
-          <span className={`flex items-center gap-2 text-base ${paper ? "text-black" : "text-[#9EE4A9]"}`}>
+          <span className={`flex items-center gap-2 text-base ${paper ? "text-black" : "text-[#D4AF6A]"}`}>
             <Icon className="h-5 w-5" />
             {TYPE_LABEL[item.type]} · {item.meta}
           </span>
@@ -890,7 +846,7 @@ function ReadingDrawer({
             <button
               onClick={() => (tts.speaking ? tts.stop() : tts.speak(fullText))}
               className={`flex h-11 items-center gap-2 rounded-full px-5 text-base font-bold transition ${
-                tts.speaking ? "listening bg-[#9EE4A9] text-black" : paper ? "bg-black text-white" : "bg-white text-black hover:bg-[#9EE4A9]"
+                tts.speaking ? "listening bg-[#D4AF6A] text-black" : paper ? "bg-black text-white" : "bg-white text-black hover:bg-[#D4AF6A]"
               }`}
             >
               {tts.speaking ? <Square className="h-4 w-4 fill-current" /> : <Volume2 className="h-5 w-5" />}
@@ -918,7 +874,7 @@ function ReadingDrawer({
         <div className="flex-1 overflow-y-auto px-6 py-8 sm:px-10">
           <h3 className="font-display text-3xl leading-snug sm:text-4xl">{item.title}</h3>
 
-          <div className={`mt-6 rounded-2xl border-r-4 p-5 ${paper ? "border-black bg-black/5" : "border-[#9EE4A9] bg-white/[0.04]"}`}>
+          <div className={`mt-6 rounded-2xl border-r-4 p-5 ${paper ? "border-black bg-black/5" : "border-[#D4AF6A] bg-white/[0.04]"}`}>
             <p className={`mb-1 text-sm font-bold ${c.faint}`}>الخلاصة</p>
             <p className={`${BODY} leading-relaxed`}>{item.excerpt}</p>
           </div>
