@@ -7,19 +7,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0806",
+  themeColor: "#000000",
 };
 
-/* الخطوط تُحمَّل من Google Fonts في المتصفح (وليس وقت البناء) — React 19 يرفعها تلقائياً إلى <head> */
-const FONTS_HREF =
-  "https://fonts.googleapis.com/css2?" +
-  [
-    "family=Amiri:wght@400;700",
-    "family=Cairo:wght@600;700;800;900",
-    "family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700",
-    "family=Readex+Pro:wght@300;400;500;600;700",
-  ].join("&") +
-  "&display=swap";
+/* خطوط ثمانية (Thmanyah Sans / Serif Display / Serif Text) تُحمَّل من CDN في المتصفح
+   ملاحظة الترخيص: الخط مجاني للاستخدام الشخصي — للنشر الرسمي راجع font.thmanyah.com/licenses */
+const FONTS_HREF = "https://cdn.jsdelivr.net/npm/@dawod/thmanyah-font-web/index.css";
 
 export default function RootLayout({
   children,
@@ -29,8 +22,7 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link rel="stylesheet" href={FONTS_HREF} />
       </head>
       <body className="min-h-screen bg-ink text-ivory antialiased selection:bg-gold selection:text-ink">

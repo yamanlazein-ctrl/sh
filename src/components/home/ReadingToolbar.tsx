@@ -36,7 +36,7 @@ export default function ReadingToolbar() {
                 onClick={() => set({ size: s.v })}
                 aria-pressed={prefs.size === s.v}
                 className={`flex h-16 flex-col items-center justify-center rounded-2xl border transition ${
-                  prefs.size === s.v ? "border-[#D4AF6A] bg-[#D4AF6A] text-black" : "border-white/15 text-white hover:border-white/40"
+                  prefs.size === s.v ? "border-[#E8E3D7] bg-[#E8E3D7] text-black" : "border-white/15 text-white hover:border-white/40"
                 }`}
               >
                 <span className={`font-display leading-none ${s.cls}`}>أ</span>
@@ -72,7 +72,7 @@ export default function ReadingToolbar() {
       <button
         onClick={() => setOpen(!open)}
         aria-expanded={open}
-        className="flex h-14 items-center gap-2 rounded-full border border-white/15 bg-white px-5 font-bold text-black shadow-[0_10px_30px_rgba(0,0,0,0.6)] transition hover:bg-[#D4AF6A]"
+        className="flex h-14 items-center gap-2 rounded-full border border-white/15 bg-white px-5 font-bold text-black shadow-[0_10px_30px_rgba(0,0,0,0.6)] transition hover:bg-[#E8E3D7]"
       >
         <Eye className="h-5 w-5" />
         <span>سهولة القراءة</span>
@@ -86,14 +86,14 @@ function Toggle({ on, onClick, icon, title, hint }: { on: boolean; onClick: () =
     <button
       onClick={onClick}
       aria-pressed={on}
-      className={`flex w-full items-center gap-3 rounded-2xl border p-3 text-right transition ${on ? "border-[#D4AF6A] bg-[#D4AF6A]/10" : "border-white/15 hover:border-white/40"}`}
+      className={`flex w-full items-center gap-3 rounded-2xl border p-3 text-right transition ${on ? "border-[#E8E3D7] bg-[#E8E3D7]/10" : "border-white/15 hover:border-white/40"}`}
     >
-      <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-full ${on ? "bg-[#D4AF6A] text-black" : "bg-white/10 text-white"}`}>{icon}</span>
+      <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-full ${on ? "bg-[#E8E3D7] text-black" : "bg-white/10 text-white"}`}>{icon}</span>
       <span className="flex-1">
         <span className="block font-bold">{title}</span>
         <span className="block text-xs text-white/60">{hint}</span>
       </span>
-      <span className={`relative h-7 w-12 shrink-0 rounded-full transition ${on ? "bg-[#D4AF6A]" : "bg-white/20"}`}>
+      <span className={`relative h-7 w-12 shrink-0 rounded-full transition ${on ? "bg-[#E8E3D7]" : "bg-white/20"}`}>
         <span className={`absolute top-1 h-5 w-5 rounded-full bg-white transition-all ${on ? "left-1 bg-black" : "left-6"}`} />
       </span>
     </button>

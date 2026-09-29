@@ -250,7 +250,7 @@ function Home() {
           }`}
         >
           <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-2.5">
-            <span className="font-display grid h-8 w-8 place-items-center rounded-full bg-[#D4AF6A] text-lg text-black">ص</span>
+            <span className="font-display grid h-8 w-8 place-items-center rounded-full bg-[#E8E3D7] text-lg text-black">ص</span>
             <span className="font-display text-lg">الصابوني</span>
           </button>
 
@@ -263,7 +263,7 @@ function Home() {
                   activeSec === s.id ? "bg-white/10 text-white" : "text-white/55 hover:text-white"
                 }`}
               >
-                {activeSec === s.id && <span className="absolute -top-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-[#D4AF6A]" />}
+                {activeSec === s.id && <span className="absolute -top-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-[#E8E3D7]" />}
                 {s.label}
               </button>
             ))}
@@ -272,7 +272,7 @@ function Home() {
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => jumpToSearch(null)}
-              className={`hidden items-center gap-2 rounded-full border border-white/15 px-3.5 py-1.5 text-sm text-white/70 transition-all duration-500 hover:border-[#D4AF6A] hover:text-white sm:flex ${
+              className={`hidden items-center gap-2 rounded-full border border-white/15 px-3.5 py-1.5 text-sm text-white/70 transition-all duration-500 hover:border-[#E8E3D7] hover:text-white sm:flex ${
                 pastHero ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
               }`}
               aria-label="ابحث"
@@ -281,7 +281,7 @@ function Home() {
               ابحث
               <kbd className="rounded border border-white/15 px-1.5 text-xs text-white/55">/</kbd>
             </button>
-            <a href="#store" className="rounded-full bg-[#D4AF6A] px-5 py-2 text-sm font-bold text-ink transition hover:bg-gold2">
+            <a href="#store" className="rounded-full bg-[#E8E3D7] px-5 py-2 text-sm font-bold text-ink transition hover:bg-gold2">
               المتجر
             </a>
             <button onClick={() => setMenu(!menu)} className="grid h-10 w-10 place-items-center rounded-full lg:hidden" aria-label="القائمة">
@@ -309,7 +309,7 @@ function Home() {
                 setMenu(false);
                 jumpToSearch(null);
               }}
-              className="mt-1 flex w-full items-center gap-2 rounded-2xl bg-white/5 px-4 py-3 text-right text-[#D4AF6A]"
+              className="mt-1 flex w-full items-center gap-2 rounded-2xl bg-white/5 px-4 py-3 text-right text-[#E8E3D7]"
             >
               <Search className="h-4 w-4" /> ابحث في الأرشيف
             </button>
@@ -326,7 +326,7 @@ function Home() {
         <HeroCinema />
 
         {/* تعمّة خفيفة خلف النص لضمان القراءة */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_52%_at_50%_52%,rgba(10,8,6,0.72)_36%,rgba(10,8,6,0.28)_72%,transparent_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_52%_at_50%_52%,rgba(0,0,0,0.72)_36%,rgba(0,0,0,0.28)_72%,transparent_100%)]" />
 
         <div className="relative z-20 mx-auto w-full max-w-3xl px-5 text-center">
           <div
@@ -376,17 +376,17 @@ function Home() {
               ابحث في أرشيف الشيخ
             </label>
             <div
-              className={`relative flex items-center gap-3 rounded-2xl border bg-[#12100a] px-5 py-4 transition-all duration-300 ${
-                focused ? "border-[#D4AF6A] shadow-[0_0_0_6px_rgba(212,175,106,0.12)]" : "border-white/15"
+              className={`relative flex items-center gap-3 rounded-2xl border bg-[#0f0f0f] px-5 py-4 transition-all duration-300 ${
+                focused ? "border-[#E8E3D7] shadow-[0_0_0_6px_rgba(232,227,215,0.12)]" : "border-white/15"
               }`}
             >
-              <Search className={`h-6 w-6 shrink-0 ${focused ? "text-[#D4AF6A]" : "text-white/55"}`} />
+              <Search className={`h-6 w-6 shrink-0 ${focused ? "text-[#E8E3D7]" : "text-white/55"}`} />
 
               {currentIntent && (
                 <button
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => setIntent(null)}
-                  className="flex shrink-0 items-center gap-1 rounded-lg bg-[#D4AF6A] px-2.5 py-1 text-xs font-bold text-black"
+                  className="flex shrink-0 items-center gap-1 rounded-lg bg-[#E8E3D7] px-2.5 py-1 text-xs font-bold text-black"
                   title="إزالة النطاق"
                 >
                   {currentIntent.scope}
@@ -433,7 +433,7 @@ function Home() {
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => (voice.listening ? voice.stop() : voice.start())}
                   className={`flex h-11 shrink-0 items-center gap-2 rounded-full px-3 text-sm font-bold transition ${
-                    voice.listening ? "listening bg-[#D4AF6A] text-black" : "bg-white/10 text-white hover:bg-white/20"
+                    voice.listening ? "listening bg-[#E8E3D7] text-black" : "bg-white/10 text-white hover:bg-white/20"
                   }`}
                   aria-label={voice.listening ? "إيقاف الاستماع" : "ابحث بصوتك"}
                   title="ابحث بصوتك"
@@ -445,7 +445,7 @@ function Home() {
             </div>
 
             {showPanel && (
-              <div className="absolute inset-x-0 top-full z-40 mt-2 flex max-h-[min(58vh,520px)] flex-col overflow-hidden rounded-2xl border border-white/15 bg-[#12100a] text-right shadow-[0_30px_80px_rgba(0,0,0,0.9)]" role="listbox" aria-label="نتائج البحث">
+              <div className="absolute inset-x-0 top-full z-40 mt-2 flex max-h-[min(58vh,520px)] flex-col overflow-hidden rounded-2xl border border-white/15 bg-[#0f0f0f] text-right shadow-[0_30px_80px_rgba(0,0,0,0.9)]" role="listbox" aria-label="نتائج البحث">
                 <div className="flex items-center justify-between border-b border-white/5 px-5 py-2.5 text-xs text-white/55">
                   <span>
                     {results.length} نتيجة · خلال {ms.toFixed(2)} ملّي ثانية
@@ -477,7 +477,7 @@ function Home() {
                           >
                             <span
                               className={`mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-lg ${
-                                active === i ? "bg-[#D4AF6A] text-black" : "bg-white/5 text-white/60"
+                                active === i ? "bg-[#E8E3D7] text-black" : "bg-white/5 text-white/60"
                               }`}
                             >
                               <Icon className="h-4 w-4" />
@@ -486,7 +486,7 @@ function Home() {
                               <span className="block truncate font-bold">
                                 {highlight(item.title, tokens).map((p, k) =>
                                   p.hit ? (
-                                    <mark key={k} className="rounded bg-[#D4AF6A]/20 px-0.5 text-[#D4AF6A]">
+                                    <mark key={k} className="rounded bg-[#E8E3D7]/20 px-0.5 text-[#E8E3D7]">
                                       {p.text}
                                     </mark>
                                   ) : (
@@ -522,7 +522,7 @@ function Home() {
                 }}
                 className={`min-h-11 rounded-full border px-5 py-2 text-base transition ${
                   intent === it.id
-                    ? "border-[#D4AF6A] bg-[#D4AF6A] text-black"
+                    ? "border-[#E8E3D7] bg-[#E8E3D7] text-black"
                     : "border-white/15 bg-black/60 text-white/70 backdrop-blur hover:border-white/40 hover:text-white"
                 }`}
               >
@@ -560,7 +560,7 @@ function Home() {
 
       {/* ================= KINETIC TAPES (moving text) ================= */}
       <section aria-hidden className="overflow-hidden border-t border-white/10">
-        <Reveal variant="right" className="bg-[#D4AF6A] py-5" dir="ltr">
+        <Reveal variant="right" className="bg-[#E8E3D7] py-5" dir="ltr">
           <Marquee items={TAPE_A} duration={40} itemClass="font-display text-4xl text-black sm:text-6xl" sep="text-black/40" />
         </Reveal>
         <Reveal variant="left" delay={0.15} className="border-b border-white/10 py-5" dir="ltr">
@@ -582,7 +582,7 @@ function Home() {
 
       {/* divider tape */}
       <Reveal as="section" variant="blur" aria-hidden className="overflow-hidden border-y border-white/10 py-6" dir="ltr">
-        <Marquee items={["شاهِد", "استمِع", "اقرأ", "اسأل"]} duration={30} itemClass="font-display text-stroke text-5xl sm:text-7xl" sep="text-[#D4AF6A]" />
+        <Marquee items={["شاهِد", "استمِع", "اقرأ", "اسأل"]} duration={30} itemClass="font-display text-stroke text-5xl sm:text-7xl" sep="text-[#E8E3D7]" />
       </Reveal>
 
       {/* ================= VIDEOS ================= */}
@@ -612,7 +612,7 @@ function Home() {
                 onClick={row.go}
                 className="sweep-hover group relative flex w-full items-center gap-6 border-b border-white/10 py-7 text-right sm:gap-10"
               >
-                <span className="absolute inset-0 origin-right scale-x-0 bg-[#D4AF6A] transition-transform duration-500 ease-[cubic-bezier(.2,.7,.1,1)] group-hover:scale-x-100" />
+                <span className="absolute inset-0 origin-right scale-x-0 bg-[#E8E3D7] transition-transform duration-500 ease-[cubic-bezier(.2,.7,.1,1)] group-hover:scale-x-100" />
                 <span className="relative w-10 text-sm text-white/55 transition group-hover:text-black/50">{row.no}</span>
 
                 <span className="relative min-w-0 flex-1 overflow-hidden">
@@ -746,7 +746,7 @@ function Home() {
         <div className="hairline-gold" aria-hidden />
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-10 text-sm text-white/55 sm:flex-row sm:px-8">
           <div className="flex items-center gap-2.5">
-            <span className="font-display grid h-7 w-7 place-items-center rounded-md bg-[#D4AF6A] text-sm text-black">ص</span>
+            <span className="font-display grid h-7 w-7 place-items-center rounded-md bg-[#E8E3D7] text-sm text-black">ص</span>
             <span className="text-white/70">الصابوني — الأرشيف العلمي</span>
           </div>
           <p>صدقة جارية عن روح الشيخ محمد علي الصابوني رحمه الله</p>
@@ -800,7 +800,7 @@ function ReadingDrawer({
   // colors for dark vs. paper reading mode
   const c = paper
     ? { panel: "bg-[#F2EDDD] text-[#141414] border-black/10", sub: "text-black/65", faint: "text-black/55", line: "border-black/10", chip: "border-black/15 text-black/70", btn: "border-black/15 hover:bg-black/5" }
-    : { panel: "bg-[#12100a] text-white border-white/10", sub: "text-white/75", faint: "text-white/55", line: "border-white/10", chip: "border-white/15 text-white/60", btn: "border-white/15 hover:bg-white/5" };
+    : { panel: "bg-[#0f0f0f] text-white border-white/10", sub: "text-white/75", faint: "text-white/55", line: "border-white/10", chip: "border-white/15 text-white/60", btn: "border-white/15 hover:bg-white/5" };
 
   return (
     <div className="fixed inset-0 z-[70]" role="dialog" aria-modal="true" aria-label={item.title}>
@@ -808,7 +808,7 @@ function ReadingDrawer({
       <aside className={`drawer-in absolute inset-y-0 left-0 flex w-full max-w-2xl flex-col border-r ${c.panel}`}>
         {/* top bar */}
         <div className={`flex items-center justify-between border-b px-5 py-3 ${c.line}`}>
-          <span className={`flex items-center gap-2 text-base ${paper ? "text-black" : "text-[#D4AF6A]"}`}>
+          <span className={`flex items-center gap-2 text-base ${paper ? "text-black" : "text-[#E8E3D7]"}`}>
             <Icon className="h-5 w-5" />
             {TYPE_LABEL[item.type]} · {item.meta}
           </span>
@@ -823,7 +823,7 @@ function ReadingDrawer({
             <button
               onClick={() => (tts.speaking ? tts.stop() : tts.speak(fullText))}
               className={`flex h-11 items-center gap-2 rounded-full px-5 text-base font-bold transition ${
-                tts.speaking ? "listening bg-[#D4AF6A] text-black" : paper ? "bg-black text-white" : "bg-white text-black hover:bg-[#D4AF6A]"
+                tts.speaking ? "listening bg-[#E8E3D7] text-black" : paper ? "bg-black text-white" : "bg-white text-black hover:bg-[#E8E3D7]"
               }`}
             >
               {tts.speaking ? <Square className="h-4 w-4 fill-current" /> : <Volume2 className="h-5 w-5" />}
@@ -851,7 +851,7 @@ function ReadingDrawer({
         <div className="flex-1 overflow-y-auto px-6 py-8 sm:px-10">
           <h3 className="font-display text-3xl leading-snug sm:text-4xl">{item.title}</h3>
 
-          <div className={`mt-6 rounded-2xl border-r-4 p-5 ${paper ? "border-black bg-black/5" : "border-[#D4AF6A] bg-white/[0.04]"}`}>
+          <div className={`mt-6 rounded-2xl border-r-4 p-5 ${paper ? "border-black bg-black/5" : "border-[#E8E3D7] bg-white/[0.04]"}`}>
             <p className={`mb-1 text-sm font-bold ${c.faint}`}>الخلاصة</p>
             <p className={`${BODY} leading-relaxed`}>{item.excerpt}</p>
           </div>

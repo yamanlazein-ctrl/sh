@@ -80,7 +80,7 @@ export default function AudioSection() {
     <section id="audio" ref={ref} className="scroll-mt-24 border-t border-white/10">
       <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8">
         <Reveal variant="curtain" className="mb-12">
-          <p className="text-base text-[#D4AF6A]">الصوتيات</p>
+          <p className="text-base text-[#E8E3D7]">الصوتيات</p>
           <h2 className="font-display mt-2 text-4xl leading-tight sm:text-6xl">
             استمِع وأنت
             <br />
@@ -89,7 +89,7 @@ export default function AudioSection() {
         </Reveal>
 
         {/* Player */}
-        <Reveal variant="up" className="sweep-hover grid items-center gap-10 rounded-[2rem] border border-white/10 bg-[#12100a] p-6 sm:p-10 lg:grid-cols-12">
+        <Reveal variant="up" className="sweep-hover grid items-center gap-10 rounded-[2rem] border border-white/10 bg-[#0f0f0f] p-6 sm:p-10 lg:grid-cols-12">
           {/* Disc */}
           <div className="flex justify-center lg:col-span-4">
             <Reveal variant="spin" delay={0.25} className="relative aspect-square w-full max-w-[260px]">
@@ -101,7 +101,7 @@ export default function AudioSection() {
                 }}
               >
                 <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_20deg,transparent_0deg,rgba(255,255,255,0.08)_40deg,transparent_80deg,transparent_200deg,rgba(255,255,255,0.06)_240deg,transparent_280deg)]" />
-                <div className="absolute inset-[34%] grid place-items-center rounded-full bg-[#D4AF6A]">
+                <div className="absolute inset-[34%] grid place-items-center rounded-full bg-[#E8E3D7]">
                   <span className="font-display text-3xl text-black">ص</span>
                 </div>
                 <div className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-black" />
@@ -112,7 +112,7 @@ export default function AudioSection() {
           {/* Info + waveform */}
           <div className="lg:col-span-8">
             <div className="flex items-center gap-3 text-base">
-              <span className="rounded-full bg-[#D4AF6A]/15 px-3 py-1 text-[#D4AF6A]">{track.series}</span>
+              <span className="rounded-full bg-[#E8E3D7]/15 px-3 py-1 text-[#E8E3D7]">{track.series}</span>
               <span className="text-white/65">{track.place}</span>
             </div>
             <h3 key={track.id} className="rise font-display mt-4 text-3xl sm:text-5xl">{track.title}</h3>
@@ -132,7 +132,7 @@ export default function AudioSection() {
                 return (
                   <span
                     key={`${track.id}-${i}`}
-                    className={`flex-1 rounded-full ${filled ? "bg-[#D4AF6A]" : "bg-white/20 group-hover:bg-white/30"}`}
+                    className={`flex-1 rounded-full ${filled ? "bg-[#E8E3D7]" : "bg-white/20 group-hover:bg-white/30"}`}
                     style={{
                       height: waveIn ? `${h * 100}%` : "6%",
                       transition: `height 0.7s cubic-bezier(.2,.7,.1,1) ${i * 0.012}s, background-color 0.2s`,
@@ -156,7 +156,7 @@ export default function AudioSection() {
                   setPlaying((p) => !p);
                   setMiniClosed(false);
                 }}
-                className="grid h-16 w-16 place-items-center rounded-full bg-[#D4AF6A] text-black transition hover:scale-105"
+                className="grid h-16 w-16 place-items-center rounded-full bg-[#E8E3D7] text-black transition hover:scale-105"
                 aria-label={playing ? "إيقاف" : "تشغيل"}
               >
                 {playing ? <Pause className="h-7 w-7 fill-black" /> : <Play className="h-7 w-7 translate-x-[-2px] fill-black" />}
@@ -183,7 +183,7 @@ export default function AudioSection() {
           </p>
           <div className="w-full sm:w-80">
             <label htmlFor="audio-search" className="sr-only">ابحث في الصوتيات</label>
-            <div className="flex h-12 items-center gap-2 rounded-2xl border border-white/15 bg-[#12100a] px-3 focus-within:border-[#D4AF6A]">
+            <div className="flex h-12 items-center gap-2 rounded-2xl border border-white/15 bg-[#0f0f0f] px-3 focus-within:border-[#E8E3D7]">
               <Search className="h-5 w-5 shrink-0 text-white/60" />
               <input
                 id="audio-search"
@@ -205,7 +205,7 @@ export default function AudioSection() {
         {filtered.length === 0 ? (
           <div className="mt-6 rounded-2xl border border-white/10 py-10 text-center">
             <p className="text-base text-white/80">لا توجد تسجيلات بهذا الاسم.</p>
-            <button onClick={() => setQ("")} className="mt-3 min-h-10 rounded-full border border-white/20 px-4 text-sm hover:border-[#D4AF6A]">
+            <button onClick={() => setQ("")} className="mt-3 min-h-10 rounded-full border border-white/20 px-4 text-sm hover:border-[#E8E3D7]">
               عرض كل التسجيلات
             </button>
           </div>
@@ -216,7 +216,7 @@ export default function AudioSection() {
               return (
                 <Reveal key={tr.id} variant="up" delay={Math.min(k, 7) * 0.05}>
                   <button onClick={() => pick(i)} className="group flex w-full items-center gap-4 border-b border-white/10 py-4 text-right">
-                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/15 transition group-hover:border-[#D4AF6A]">
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/15 transition group-hover:border-[#E8E3D7]">
                       {on && playing ? (
                         <span className="eq flex items-end gap-[2px]">
                           <span />
@@ -224,14 +224,14 @@ export default function AudioSection() {
                           <span />
                         </span>
                       ) : (
-                        <Play className={`h-4 w-4 translate-x-[-1px] ${on ? "fill-[#D4AF6A] text-[#D4AF6A]" : "text-white/70"}`} />
+                        <Play className={`h-4 w-4 translate-x-[-1px] ${on ? "fill-[#E8E3D7] text-[#E8E3D7]" : "text-white/70"}`} />
                       )}
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className={`block truncate text-lg ${on ? "text-[#D4AF6A]" : "text-white/90"}`}>
+                      <span className={`block truncate text-lg ${on ? "text-[#E8E3D7]" : "text-white/90"}`}>
                         {highlight(tr.title, tokens).map((p, j) =>
                           p.hit ? (
-                            <mark key={j} className="rounded bg-[#D4AF6A]/25 px-0.5 text-[#D4AF6A]">{p.text}</mark>
+                            <mark key={j} className="rounded bg-[#E8E3D7]/25 px-0.5 text-[#E8E3D7]">{p.text}</mark>
                           ) : (
                             <span key={j}>{p.text}</span>
                           )
@@ -254,13 +254,13 @@ export default function AudioSection() {
       {playing && !inView && !miniClosed && (
         <div className="rise fixed bottom-24 left-1/2 z-50 w-[min(92vw,460px)] -translate-x-1/2 lg:bottom-5">
           <div className="flex items-center gap-3 overflow-hidden rounded-full border border-white/15 bg-[#0E0E0E]/95 p-2 shadow-[0_20px_50px_rgba(0,0,0,0.7)] backdrop-blur-xl">
-            <button onClick={() => setPlaying(false)} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#D4AF6A] text-black" aria-label="إيقاف">
+            <button onClick={() => setPlaying(false)} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#E8E3D7] text-black" aria-label="إيقاف">
               <Pause className="h-4 w-4 fill-black" />
             </button>
             <div className="min-w-0 flex-1">
               <p className="truncate text-base">{track.title}</p>
               <div className="mt-1 h-1 overflow-hidden rounded-full bg-white/15">
-                <div className="h-full rounded-full bg-[#D4AF6A]" style={{ width: `${progress * 100}%` }} />
+                <div className="h-full rounded-full bg-[#E8E3D7]" style={{ width: `${progress * 100}%` }} />
               </div>
             </div>
             <span className="eq flex items-end gap-[2px] px-1">

@@ -5,18 +5,18 @@
    Emerald Night + Manuscript Gold
    ============================================================ */
 @theme {
-  --color-ink: #0a0806;        /* الخلفية الأساسية: أسود كربوني دافئ */
-  --color-ink2: #14110b;       /* أسطح مرفوعة */
-  --color-ink3: #1c1812;       /* بطاقات وتحويف */
-  --color-gold: #d4af6a;       /* ذهب المخطوطات — اللون الرئيسي */
-  --color-gold2: #eacd93;      /* ذهب فاتح للتحويم */
-  --color-gold3: #b8934c;      /* ذهب داكن */
-  --color-ivory: #f5f0e3;      /* نص عاجي بدل الأبيض النيء */
-  --color-bronze: #2e2412;     /* برونزي داكن للأسطح الممتلئة */
-  --color-bronze2: #1d160b;    /* برونزي أغمق */
-  --color-sage: #a89c85;       /* نص ثانوي حجري دافئ */
+  --color-ink: #000000;        /* الخلفية: أسود خالص مثل ثمانية */
+  --color-ink2: #0a0a0a;       /* أسطح مرفوعة */
+  --color-ink3: #161616;       /* بطاقات وتحويف */
+  --color-gold: #e8e3d7;       /* رملي ورقي — لون التمييز الرئيسي */
+  --color-gold2: #f5f2e9;      /* فاتح للتحويم */
+  --color-gold3: #c6c0b0;      /* داكن */
+  --color-ivory: #faf9f6;      /* نص أبيض ورقي */
+  --color-bronze: #1a1a1a;     /* سطح ممتلئ داكن */
+  --color-bronze2: #101010;    /* سطح أغمق */
+  --color-sage: #a3a3a3;       /* نص ثانوي حيادي */
 
-  --font-quran: var(--font-amiri), "Amiri", "Times New Roman", serif;
+  --font-quran: "Thmanyah Serif Text", "Times New Roman", serif;
 }
 
 @layer base {
@@ -30,7 +30,6 @@
     --font-ibm-plex: "IBM Plex Sans Arabic";
     --font-readex: "Readex Pro";
     --font-cairo: "Cairo";
-    --font-amiri: "Amiri";
   }
 
   html {
@@ -40,7 +39,7 @@
   body {
     background: var(--ink);
     color: var(--ivory);
-    font-family: "Thmanyah Sans", var(--font-ibm-plex), var(--font-readex), system-ui, sans-serif;
+    font-family: "Thmanyah Sans", "Segoe UI", system-ui, sans-serif;
     direction: rtl;
     overflow-x: hidden;
   }
@@ -51,11 +50,11 @@
   }
 }
 
-/* Display type — uses Thmanyah/Mawzoon if installed locally, else Cairo Black */
+/* Display type — خط ثمانية للعناوين مثل font.thmanyah.com */
 .font-display {
-  font-family: "Mawzoon", "Thmanyah Serif Display", var(--font-cairo), var(--font-readex), sans-serif;
+  font-family: "Thmanyah Serif Display", "Times New Roman", serif;
   font-weight: 900;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 /* ---------- Living river of titles ---------- */
@@ -94,12 +93,12 @@
 
 .text-stroke {
   color: transparent;
-  -webkit-text-stroke: 1.5px rgba(212, 175, 106, 0.8);
+  -webkit-text-stroke: 1.5px rgba(250, 249, 246, 0.85);
 }
 
 /* ---------- Gold gradient headline text ---------- */
 .gold-text {
-  background: linear-gradient(115deg, #f0dcab 0%, #d4af6a 48%, #b8934c 100%);
+  background: linear-gradient(115deg, #ffffff 0%, #f1ede2 48%, #d9d2c0 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -108,7 +107,7 @@
 /* ---------- Hairlines & ornaments ---------- */
 .hairline-gold {
   height: 1px;
-  background: linear-gradient(to left, transparent, rgba(212, 175, 106, 0.55), transparent);
+  background: linear-gradient(to left, transparent, rgba(232, 227, 215, 0.5), transparent);
 }
 
 .ornate-corner {
@@ -168,7 +167,7 @@
   100% { opacity: 0; }
 }
 .cut-flash {
-  background: linear-gradient(105deg, rgba(234, 205, 147, 0.85), rgba(212, 175, 106, 0.18) 45%, transparent 72%);
+  background: linear-gradient(105deg, rgba(245, 242, 233, 0.7), rgba(232, 227, 215, 0.15) 45%, transparent 72%);
   animation: cutflash 0.55s ease-out both;
 }
 
@@ -180,7 +179,7 @@
 }
 .light-sweep {
   animation: lightsweep 7s ease-in-out infinite;
-  background: linear-gradient(90deg, transparent, rgba(212, 175, 106, 0.13) 45%, rgba(234, 205, 147, 0.2) 50%, rgba(212, 175, 106, 0.13) 55%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(245, 242, 233, 0.09) 45%, rgba(255, 255, 255, 0.14) 50%, rgba(245, 242, 233, 0.09) 55%, transparent);
   filter: blur(6px);
 }
 
@@ -205,7 +204,7 @@
   inset: 0;
   pointer-events: none;
   transform: translateX(-140%) skewX(-14deg);
-  background: linear-gradient(90deg, transparent, rgba(212, 175, 106, 0.16) 48%, rgba(234, 205, 147, 0.22) 52%, rgba(212, 175, 106, 0.16) 56%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(245, 242, 233, 0.12) 48%, rgba(255, 255, 255, 0.16) 52%, rgba(245, 242, 233, 0.12) 56%, transparent);
 }
 .sweep-hover:hover::after {
   animation: lightsweep 0.9s ease;
@@ -223,13 +222,13 @@
 .calm .kbslow { animation: none; }
 
 .duotone-warm {
-  background: #6b5326;
+  background: #8a7a5c;
   mix-blend-mode: color;
-  opacity: 0.18;
+  opacity: 0.14;
 }
 
 .gold-glow {
-  background: radial-gradient(58% 46% at 50% 42%, rgba(212, 175, 106, 0.16), transparent 70%);
+  background: radial-gradient(58% 46% at 50% 42%, rgba(245, 242, 233, 0.1), transparent 70%);
 }
 
 /* ---------- Audio: equalizer + spinning disc ---------- */
@@ -373,8 +372,8 @@ body {
 
 /* Voice search listening pulse */
 @keyframes listen {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 106, 0.5); }
-  50% { box-shadow: 0 0 0 12px rgba(212, 175, 106, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 242, 233, 0.45); }
+  50% { box-shadow: 0 0 0 12px rgba(245, 242, 233, 0); }
 }
 .listening {
   animation: listen 1.2s ease-out infinite;
@@ -466,7 +465,7 @@ body {
   background: var(--ink);
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2416;
+  background: #262626;
   border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -475,7 +474,7 @@ body {
 
 /* ---------- Tape shine: نص ذهبي بلمعان يمشي ---------- */
 .tape-gold-shine {
-  background: linear-gradient(100deg, #b8934c 20%, #f0dcab 42%, #fffbe9 50%, #f0dcab 58%, #b8934c 80%);
+  background: linear-gradient(100deg, #a8a399 20%, #f5f2e9 42%, #ffffff 50%, #f5f2e9 58%, #a8a399 80%);
   background-size: 220% 100%;
   -webkit-background-clip: text;
   background-clip: text;
