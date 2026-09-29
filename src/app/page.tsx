@@ -552,35 +552,8 @@ function Home() {
         </div>
       </section>
 
-      {/* ================= HOW IT WORKS (plain language, for first-time visitors) ================= */}
-      <section className="border-t border-white/10" aria-labelledby="how-title">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
-          <Reveal variant="blur" as="h2" id="how-title" className="font-display text-2xl sm:text-3xl">
-            أول مرة هنا؟ <span className="text-[#D4AF6A]">الأمر بسيط.</span>
-          </Reveal>
-          <ol className="mt-8 grid gap-4 md:grid-cols-3">
-            {[
-              { n: "١", t: "اكتب سؤالك أو قُله", d: "اكتب بكلماتك العادية، أو اضغط زر «تكلّم» واسأل بصوتك. لا حاجة لكلمات دقيقة." },
-              { n: "٢", t: "اختر ما يناسبك", d: "تظهر لك الكتب والفتاوى والدروس المتعلقة بسؤالك مباشرة، مرتّبة من الأقرب." },
-              { n: "٣", t: "اقرأ أو استمع", d: "كبّر الخط كما تحب، أو اضغط «استمع للنص» ليقرأه لك الموقع، وشاركه مع أهلك." },
-            ].map((s, i) => (
-              <Reveal as="li" variant="up" delay={0.1 + i * 0.14} key={s.n} className="flex gap-4 rounded-3xl border border-white/10 bg-[#12100a] p-6">
-                <span className="font-display grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-[#D4AF6A] text-3xl text-black">{s.n}</span>
-                <span>
-                  <span className="font-display block text-xl">{s.t}</span>
-                  <span className="mt-2 block text-base leading-relaxed text-white/70">{s.d}</span>
-                </span>
-              </Reveal>
-            ))}
-          </ol>
-          <button
-            onClick={() => jumpToSearch(null)}
-            className="mt-8 flex min-h-12 items-center gap-2 rounded-full bg-white px-6 text-base font-bold text-black transition hover:bg-[#D4AF6A]"
-          >
-            <Search className="h-5 w-5" /> جرّب الآن
-          </button>
-        </div>
-      </section>
+      {/* ================= قصة الشيخ — مباشرة بعد الفيلم ================= */}
+      <PortraitStory />
 
       {/* ================= KINETIC TAPES (moving text) ================= */}
       <section aria-hidden className="overflow-hidden border-t border-white/10">
@@ -591,9 +564,6 @@ function Home() {
           <Marquee items={TAPE_B} reverse duration={48} itemClass="font-display text-stroke text-4xl sm:text-6xl" sep="text-white/55" />
         </Reveal>
       </section>
-
-      {/* ================= PORTRAIT STORY (replaces "في مكانٍ واحد") ================= */}
-      <PortraitStory />
 
       {/* ================= INDEX (B) + hover marquee (A) ================= */}
       <section className="border-t border-white/10">
@@ -614,7 +584,7 @@ function Home() {
               <Reveal key={row.no} variant="wipe" delay={ri * 0.12}>
               <button
                 onClick={row.go}
-                className="group relative flex w-full items-center gap-6 overflow-hidden border-b border-white/10 py-7 text-right sm:gap-10"
+                className="sweep-hover group relative flex w-full items-center gap-6 border-b border-white/10 py-7 text-right sm:gap-10"
               >
                 <span className="absolute inset-0 origin-right scale-x-0 bg-[#D4AF6A] transition-transform duration-500 ease-[cubic-bezier(.2,.7,.1,1)] group-hover:scale-x-100" />
                 <span className="relative w-10 text-sm text-white/55 transition group-hover:text-black/50">{row.no}</span>
@@ -673,7 +643,7 @@ function Home() {
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-24 sm:px-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Reveal variant="curtain" className="ornate-corner relative aspect-[4/5] overflow-hidden rounded-2xl border border-gold/25">
-              <img src="/images/sheikh-portrait.jpg" alt="الشيخ محمد علي الصابوني" className="h-full w-full object-cover object-top" />
+              <img src="/images/sheikh-portrait.jpg" alt="الشيخ محمد علي الصابوني" className="kbslow h-full w-full object-cover object-top" />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-transparent to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-6">
                 <p className="font-display text-2xl text-ivory">محمد علي الصابوني</p>

@@ -162,6 +162,66 @@
     linear-gradient(to bottom, rgba(10, 8, 6, 0.62), rgba(10, 8, 6, 0.18) 30%, rgba(10, 8, 6, 0.24) 62%, var(--ink) 98%);
 }
 
+/* ---------- Cut flash: وميض ذهبي لحظة تبدّل اللقطة (إحساس قصّ مونتاج) ---------- */
+@keyframes cutflash {
+  0% { opacity: 0.2; }
+  100% { opacity: 0; }
+}
+.cut-flash {
+  background: linear-gradient(105deg, rgba(234, 205, 147, 0.85), rgba(212, 175, 106, 0.18) 45%, transparent 72%);
+  animation: cutflash 0.55s ease-out both;
+}
+
+/* ---------- Light sweep: شعاع ذهبي يمرّ على المشهد ---------- */
+@keyframes lightsweep {
+  0% { transform: translateX(-140%) skewX(-14deg); opacity: 0; }
+  12% { opacity: 1; }
+  55%, 100% { transform: translateX(240%) skewX(-14deg); opacity: 0; }
+}
+.light-sweep {
+  animation: lightsweep 7s ease-in-out infinite;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 106, 0.13) 45%, rgba(234, 205, 147, 0.2) 50%, rgba(212, 175, 106, 0.13) 55%, transparent);
+  filter: blur(6px);
+}
+
+/* ---------- Frame tick: تعبئة شريط اللقطة الحالية ---------- */
+@keyframes fillbar {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.fillbar {
+  transform-origin: right;
+  animation: fillbar 1.15s linear both;
+}
+
+/* ---------- Hover sweep: لمعة ذهبية تمرّ على البطاقات عند التحويم ---------- */
+.sweep-hover {
+  position: relative;
+  overflow: hidden;
+}
+.sweep-hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform: translateX(-140%) skewX(-14deg);
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 106, 0.16) 48%, rgba(234, 205, 147, 0.22) 52%, rgba(212, 175, 106, 0.16) 56%, transparent);
+}
+.sweep-hover:hover::after {
+  animation: lightsweep 0.9s ease;
+}
+
+/* ---------- Slow zoom للبورتريه ---------- */
+.kbslow {
+  animation: kb 26s ease-in-out infinite alternate;
+}
+
+.calm .cut-flash,
+.calm .light-sweep,
+.calm .fillbar { display: none; }
+.calm .sweep-hover:hover::after { animation: none; }
+.calm .kbslow { animation: none; }
+
 .duotone-warm {
   background: #6b5326;
   mix-blend-mode: color;

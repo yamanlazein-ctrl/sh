@@ -61,7 +61,7 @@ export default function VideoSection() {
         <div className="grid gap-6 lg:grid-cols-12">
           {/* Featured player */}
           <Reveal variant="tilt" className="lg:col-span-8">
-            <div className="group relative aspect-video overflow-hidden rounded-3xl border border-white/10 bg-[#12100a]">
+            <div className="sweep-hover group relative aspect-video rounded-3xl border border-white/10 bg-[#12100a]">
               {playing && v.youtubeId ? (
                 <iframe
                   className="absolute inset-0 h-full w-full"
