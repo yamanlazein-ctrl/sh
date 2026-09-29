@@ -127,99 +127,54 @@ export default function HeroCinema() {
         />
       )}
 
-      {/* —— الكلمة العملاقة: عنوان صامت يتكفّر مع كل لقطة —— */}
-      {filmOn && (
-        <div key={frame} className="rise pointer-events-none absolute inset-0 z-[5] flex items-center justify-center">
-          <span className="text-stroke font-display select-none text-[26vw] leading-none opacity-[0.08] sm:text-[20vw]">
-            {cur.word}
-          </span>
-        </div>
-      )}
-
       {/* —— وميض القص عند كل تبدّل لقطة —— */}
       {filmOn && !prefs.calm && (
         <div key={frame} className="cut-flash pointer-events-none absolute inset-0 z-10" />
       )}
-
-      {/* —— شعاع ذهبي يمرّ على المشهد دورياً —— */}
-      {!prefs.calm && <div className="light-sweep pointer-events-none absolute inset-y-0 right-[-30%] z-10 w-1/2" />}
 
       {/* —— طبقات التلوين السينمائي —— */}
       <div className="duotone-warm absolute inset-0" />
       <div className="vignette absolute inset-0" />
       <div className="gold-glow absolute inset-0" />
 
-      {/* —— شارة الفيلم + رقم اللقطة —— */}
-      <div className="absolute left-5 top-24 z-20 flex items-center gap-3 sm:left-10 sm:top-28">
-        <span className="flex items-center gap-2 rounded-full border border-gold/30 bg-ink/55 px-3.5 py-1.5 text-xs text-gold backdrop-blur-md">
-          <Clapperboard className="h-3.5 w-3.5" />
-          {videoOk ? "فيديو الشيخ يُعرض الآن" : "فيلم: سبعون عاماً في خدمة القرآن"}
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-70" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
+      {/* —— عنقود الفيلم: شارة + عدّاد + شرائط اللقطات، بمكان واحد —— */}
+      <div className="absolute left-5 top-24 z-20 flex flex-col items-start gap-2 sm:left-10 sm:top-28">
+        <div className="flex items-center gap-2">
+          <span className="flex items-center gap-2 rounded-full border border-gold/30 bg-ink/55 px-3.5 py-1.5 text-xs text-gold backdrop-blur-md">
+            <Clapperboard className="h-3.5 w-3.5" />
+            {videoOk ? "فيديو الشيخ يُعرض الآن" : "فيلم: سبعون عاماً في خدمة القرآن"}
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-70" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
+            </span>
           </span>
-        </span>
-        {filmOn && (
-          <span className="font-sans rounded-full border border-white/10 bg-ink/55 px-2.5 py-1 text-[11px] tabular-nums text-ivory/70 backdrop-blur-md" dir="ltr">
-            {pad2(frame + 1)} / {pad2(FRAMES.length)}
-          </span>
-        )}
-      </div>
-
-      {/* —— شريط اللقطات (ticks) —— */}
-      {filmOn && (
-        <div className="absolute bottom-[8.5rem] left-5 z-20 flex items-center gap-1.5 sm:bottom-24 sm:left-10">
-          {FRAMES.map((f, i) => (
-            <button
-              key={f.src}
-              onClick={() => setFrame(i)}
-              aria-label={`اللقطة ${i + 1}: ${f.tag}`}
-              className="group relative h-4 w-8"
-            >
-              <span className="absolute inset-x-0 top-1/2 h-[3px] -translate-y-1/2 overflow-hidden rounded-full bg-ivory/20">
-                {i === frame && !prefs.calm ? (
-                  <span key={frame} className="fillbar block h-full w-full bg-gold" />
-                ) : (
-                  <span className={`block h-full w-full ${i < frame ? "bg-gold/50" : "bg-transparent"} transition-colors`} />
-                )}
-              </span>
-            </button>
-          ))}
-        </div>
-      )}
-
-      {/* —— تعليق اللقطة الحالية (كتعليق فيلم وثائقي) —— */}
-      <div className="absolute bottom-24 right-5 z-20 max-w-[80%] sm:bottom-28 sm:right-10">
-        <div key={filmOn ? frame : "video"} className="rise">
-          {filmOn ? (
-            <>
-              <p className="text-[11px] font-bold tracking-[0.25em] text-gold">{cur.tag}</p>
-              <p className="font-display mt-1 text-xl leading-snug text-ivory drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] sm:text-3xl">
-                {cur.line}
-              </p>
-            </>
-          ) : (
-            <>
-              <p className="text-[11px] font-bold tracking-[0.25em] text-gold">من أرشيف المرئيات</p>
-              <p className="font-display mt-1 text-xl leading-snug text-ivory drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] sm:text-3xl">
-                الشيخ محمد علي الصابوني رحمه الله
-              </p>
-            </>
+          {filmOn && (
+            <span className="font-sans rounded-full border border-white/10 bg-ink/55 px-2.5 py-1 text-[11px] tabular-nums text-ivory/70 backdrop-blur-md" dir="ltr">
+              {pad2(frame + 1)} / {pad2(FRAMES.length)}
+            </span>
           )}
         </div>
+        {filmOn && (
+          <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-ink/45 px-3 py-2 backdrop-blur-md">
+            {FRAMES.map((f, i) => (
+              <button
+                key={f.src}
+                onClick={() => setFrame(i)}
+                aria-label={`اللقطة ${i + 1}: ${f.tag}`}
+                className="relative h-4 w-7"
+              >
+                <span className="absolute inset-x-0 top-1/2 h-[3px] -translate-y-1/2 overflow-hidden rounded-full bg-ivory/20">
+                  {i === frame && !prefs.calm ? (
+                    <span key={frame} className="fillbar block h-full w-full bg-gold" />
+                  ) : (
+                    <span className={`block h-full w-full ${i < frame ? "bg-gold/50" : "bg-transparent"} transition-colors`} />
+                  )}
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
-
-      {/* —— زر الصوت عند توفر فيديو بصوت —— */}
-      {videoOk && (
-        <button
-          onClick={toggleSound}
-          className="absolute bottom-24 left-5 z-20 grid h-11 w-11 place-items-center rounded-full border border-gold/40 bg-ink/60 text-gold backdrop-blur-md transition hover:bg-gold hover:text-ink sm:bottom-28 sm:left-10"
-          aria-label={muted ? "تشغيل صوت الفيديو" : "كتم الصوت"}
-          title={muted ? "تشغيل الصوت" : "كتم الصوت"}
-        >
-          {muted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
-        </button>
-      )}
     </div>
   );
 }

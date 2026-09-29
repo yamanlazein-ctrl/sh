@@ -24,7 +24,6 @@ import {
   Plus,
   BookMarked,
   ShoppingBag,
-  ChevronDown,
 } from "lucide-react";
 import {
   ITEMS,
@@ -344,13 +343,9 @@ function Home() {
             <span className="hairline-gold hidden w-14 sm:block" aria-hidden />
           </p>
 
-          <h1 className="font-display text-[2.5rem] leading-[1.25] sm:text-6xl md:text-7xl">
+          <h1 className="font-display text-4xl leading-[1.3] sm:text-5xl md:text-6xl">
             <span className="line-mask"><span className="line-in" style={{ animationDelay: "0.35s" }}>
-            سبعون عاماً
-            <span className="group/p mx-3 inline-block h-[0.8em] w-[1.9em] translate-y-[0.08em] overflow-hidden rounded-full align-baseline ring-1 ring-white/25 transition-all duration-500 hover:w-[3.2em]">
-              <img src="/images/sheikh-portrait.jpg" alt="الشيخ محمد علي الصابوني" className="h-full w-full object-cover object-top grayscale transition duration-500 group-hover/p:grayscale-0" />
-            </span>
-            من{" "}
+            سبعون عاماً من{" "}
             <span className="relative inline-grid overflow-hidden align-bottom gold-text" style={{ height: "1.3em" }}>
               {ROTATING.map((w, i) => {
                 const prev = (word - 1 + ROTATING.length) % ROTATING.length;
@@ -366,10 +361,12 @@ function Home() {
             <span className="line-mask">
               <span className="line-in relative" style={{ animationDelay: "0.5s" }}>
                 على بُعد سؤال.
-                <span className="grow-x absolute inset-x-0 bottom-0 h-[0.1em] rounded-full bg-[#D4AF6A]/70" style={{ animationDelay: "1.15s" }} />
               </span>
             </span>
           </h1>
+          <p className="rise mx-auto mt-5 max-w-xl text-base leading-relaxed text-ivory/75 sm:text-lg" style={{ animationDelay: "0.6s" }}>
+            كل ما تركه الشيخ — كتب وفتاوى ودروس وخطب — بين يديك. ابحث، اقرأ، واستمع.
+          </p>
           </div>
           </div>
 
@@ -537,9 +534,6 @@ function Home() {
 
         {/* شريط سفلي: أرقام الأرشيف فوق خلفية الفيلم */}
         <div className="absolute inset-x-0 bottom-0 z-20">
-          <div className="pointer-events-none -translate-y-12 flex justify-center">
-            <ChevronDown className="h-5 w-5 animate-bounce text-gold/60" />
-          </div>
           <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-8 gap-y-1.5 border-t border-gold/20 bg-ink/50 px-5 py-3.5 text-sm text-ivory/80 backdrop-blur-md">
             {[
               { n: "٥٠+", t: "كتاباً" },
