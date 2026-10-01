@@ -228,7 +228,7 @@ function AdhkarContent() {
                     }`}
                   >
                     <span>{isCompleted ? "اكتمل الذكر ✓" : "اضغط للتسبيح"}</span>
-                    <span className="px-2 py-0.5 rounded-lg bg-black/20 text-xs font-mono">
+                    <span className="px-2 py-0.5 rounded-lg bg-[#273338]/20 text-xs font-mono">
                       {currentCount} / {dhikr.count}
                     </span>
                   </button>

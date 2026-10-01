@@ -135,7 +135,7 @@ export function searchArchive(q: string, filter?: (i: ArchiveItem) => boolean) {
       }
       return { item: x.item, score };
     })
-    .filter((x) => x.score > 0)
+    .filter((x) => x.score >= 4)
     .sort((a, b) => b.score - a.score)
     .map((x) => x.item);
 
